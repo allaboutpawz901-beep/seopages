@@ -67,12 +67,14 @@ const CAT_GUIDE_PATTERN = /cat|kitten|persian|maine-coon|ragdoll|sphynx|bengal|b
 const OTHER_PET_SLUGS = ['fish-and-aquatics', 'bird', 'reptile', 'small-animal'];
 
 function getAnimalGuideSections(animal: 'dog' | 'cat'): MenuSection[] {
-  return GUIDES_DIRECTORY.flatMap((pillar) => pillar.subcategories.map((subcategory) => {
+  return GUIDES_DIRECTORY.flatMap((pillar) => pillar.subcategories
+    .filter((subcategory) => !(animal === 'dog' && subcategory.name.startsWith('Dog Breed Grooming')))
+    .map((subcategory) => {
     const links = subcategory.items
       .filter((item) => animal === 'cat' ? CAT_GUIDE_PATTERN.test(`${item.name} ${item.slug}`) : !CAT_GUIDE_PATTERN.test(`${item.name} ${item.slug}`))
       .map((item) => ({ title: item.name, path: item.path }));
     return { title: subcategory.name, links };
-  }).filter((section) => section.links.length > 0));
+    }).filter((section) => section.links.length > 0));
 }
 
 function getGeneralSupplySections(animal: 'dog' | 'cat'): MenuSection[] {
@@ -95,7 +97,11 @@ function getAnimalMenus(): AnimalMenu[] {
     path: '/guides',
     image: '/images/hero_grooming_dog_1791411047518.jpg',
     imageAlt: 'A freshly groomed dog',
-    sections: [...getAnimalGuideSections('dog'), ...getGeneralSupplySections('dog')],
+    sections: [
+      ...getAnimalGuideSections('dog'),
+      ...getGeneralSupplySections('dog'),
+      { title: 'Dog breeds', links: [{ title: 'Browse all dog breeds', path: '/dog-breeds' }] },
+    ],
   };
   const catMenu: AnimalMenu = {
     id: 'cat',
@@ -300,9 +306,9 @@ export const UnifiedTopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
                   <Link
                     href={activeAnimal?.path || '/guides'}
                     onClick={() => setIsMenuOpen(false)}
-                    className="hidden items-center gap-1 text-xs font-bold text-stone-700 hover:text-orange-700 sm:inline-flex"
+                    className="hidden text-xs font-bold text-stone-700 hover:text-orange-700 sm:inline-flex"
                   >
-                    View all guides <ChevronRight className="h-3.5 w-3.5" />
+                    View all guides
                   </Link>
                   <button
                     type="button"
@@ -334,7 +340,7 @@ export const UnifiedTopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
                 )}
 
                 {activeAnimal?.sections.length ? (
-                  <div className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2 xl:grid-cols-3">
+                  <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2">
                     {activeAnimal.sections.map((section) => (
                       <section key={section.title}>
                         <h3 className="mb-2 border-b border-stone-200 pb-2 text-[10px] font-bold uppercase tracking-wider text-stone-500">
@@ -349,7 +355,6 @@ export const UnifiedTopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
                                 className="group flex min-h-9 items-center justify-between gap-2 border-b border-stone-100 py-2 text-xs font-medium text-stone-700 transition-colors hover:text-orange-700"
                               >
                                 <span>{item.title}</span>
-                                <ChevronRight className="h-3.5 w-3.5 shrink-0 text-stone-300 group-hover:text-orange-600" />
                               </Link>
                             </li>
                           ))}
