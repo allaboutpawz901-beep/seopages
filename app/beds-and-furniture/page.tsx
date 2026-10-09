@@ -6,12 +6,12 @@ import { SeoPageTemplate } from '@/components/SeoPageTemplate';
 export const dynamic = 'force-static';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = getGuideDataBySlug('grooming-essentials');
+  const data = getGuideDataBySlug('beds-and-furniture');
 
   if (!data) {
     return {
-      title: 'Grooming Essentials: Needed for Home Care | All About Pawz',
-      description: 'Veterinary-grade home pet grooming essentials, styptic powders, safety shears, clippers, and coat care standards.',
+      title: 'Beds & Furniture Guides | All About Pawz',
+      description: 'Orthopedic pet beds, furniture-style crates, stairs, and loungers.',
     };
   }
 
@@ -19,12 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data.metaTitle,
     description: data.metaDescription,
     alternates: {
-      canonical: 'https://www.aapawz.com/grooming-essentials',
+      canonical: 'https://www.aapawz.com/beds-and-furniture',
     },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,
-      url: 'https://www.aapawz.com/grooming-essentials',
+      url: 'https://www.aapawz.com/beds-and-furniture',
       siteName: 'All About Pawz',
       images: [
         {
@@ -46,8 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function GroomingEssentialsParentPage() {
-  const data = getGuideDataBySlug('grooming-essentials');
+export default function BedsAndFurniturePage() {
+  const data = getGuideDataBySlug('beds-and-furniture');
 
   if (!data) {
     notFound();

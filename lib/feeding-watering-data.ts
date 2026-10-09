@@ -69,7 +69,7 @@ export const FEEDING_WATERING_PROFILES: Record<string, DomainProfile> = {
       {
         id: 'hydration-dynamics',
         title: '3. Hydration Mechanics in Mid-South Summer Humidity',
-        content: 'In Memphis and Shelby County, high ambient humidity reduces a dog’s natural panting cooling efficiency. Pets require 1 ounce of clean water per pound of body weight daily. For cats (descendants of desert carnivores with low thirst drives), circulating water fountains and wet food toppers are mandatory to prevent chronic kidney disease and urinary crystal blockages.',
+        content: 'During warm seasons and high ambient humidity, a dog’s natural panting cooling efficiency decreases. Pets require 1 ounce of clean water per pound of body weight daily. For cats (descendants of desert carnivores with low thirst drives), circulating water fountains and wet food toppers are mandatory to prevent chronic kidney disease and urinary crystal blockages.',
       },
     ],
     relatedProducts: [

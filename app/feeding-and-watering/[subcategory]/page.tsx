@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const canonical = `https://allaboutpawz.com/feeding-and-watering/${subcategory}`;
+  const canonical = `https://www.aapawz.com/feeding-and-watering/${subcategory}`;
 
   return {
     title: data.metaTitle,

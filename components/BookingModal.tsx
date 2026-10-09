@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Calendar, Check, Sparkles } from 'lucide-react';
+import { X, Calendar, Check, ShieldCheck } from 'lucide-react';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -45,7 +45,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {!submitted ? (
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">
-              <Sparkles className="w-4 h-4" />
+              <ShieldCheck className="w-4 h-4" />
               <span>Memphis & Shelby County Salon Booking</span>
             </div>
             <h3 className="text-2xl font-black text-stone-950 tracking-tight mb-1">

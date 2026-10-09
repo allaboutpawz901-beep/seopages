@@ -32,12 +32,12 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
     title: data.metaTitle,
     description: data.metaDescription,
     alternates: {
-      canonical: `https://allaboutpawz.com/grooming/${city}`,
+      canonical: `https://www.aapawz.com/grooming/${city}`,
     },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,
-      url: `https://allaboutpawz.com/grooming/${city}`,
+      url: `https://www.aapawz.com/grooming/${city}`,
       siteName: 'All About Pawz',
       images: [
         {
@@ -71,7 +71,7 @@ export default async function LocalCityPage({ params }: CityPageProps) {
   // Adjust canonical for the city route
   const cityData = {
     ...data,
-    canonicalUrl: `https://allaboutpawz.com/grooming/${city}`,
+    canonicalUrl: `https://www.aapawz.com/grooming/${city}`,
   };
 
   return <SeoPageTemplate data={cityData} />;

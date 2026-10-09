@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { 
-  Sparkles, 
+  ShieldCheck, 
   Search, 
   Smartphone, 
   Monitor, 
@@ -38,7 +38,7 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
     'publisher': {
       '@type': 'Organization',
       'name': 'All About Pawz',
-      'url': 'https://allaboutpawz.com',
+      'url': 'https://www.aapawz.com',
     },
   };
 
@@ -46,8 +46,8 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     'itemListElement': [
-      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://allaboutpawz.com' },
-      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': `https://allaboutpawz.com/guides#${data.pillar.toLowerCase()}` },
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.aapawz.com' },
+      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': `https://www.aapawz.com/guides#${data.pillar.toLowerCase()}` },
       { '@type': 'ListItem', 'position': 3, 'name': data.heroTitle, 'item': data.canonicalUrl },
     ],
   };
@@ -56,7 +56,7 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
     '@context': 'https://schema.org',
     '@type': 'PetGroomer',
     'name': 'All About Pawz',
-    'url': 'https://allaboutpawz.com',
+    'url': 'https://www.aapawz.com',
     'telephone': '+1-901-555-PAWZ',
     'address': {
       '@type': 'PostalAddress',
@@ -108,7 +108,7 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">
-          <Sparkles className="w-4 h-4" />
+          <ShieldCheck className="w-4 h-4" />
           <span>Search Engine Optimization & Structured Data</span>
         </div>
         <h2 className="text-2xl font-black text-stone-900 tracking-tight">

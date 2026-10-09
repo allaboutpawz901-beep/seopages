@@ -19,12 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data.metaTitle,
     description: data.metaDescription,
     alternates: {
-      canonical: 'https://allaboutpawz.com/feeding-and-watering',
+      canonical: 'https://www.aapawz.com/feeding-and-watering',
     },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,
-      url: 'https://allaboutpawz.com/feeding-and-watering',
+      url: 'https://www.aapawz.com/feeding-and-watering',
       siteName: 'All About Pawz',
       images: [
         {

@@ -40,7 +40,7 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
     'publisher': {
       '@type': 'Organization',
       'name': 'All About Pawz',
-      'url': 'https://allaboutpawz.com',
+      'url': 'https://www.aapawz.com',
     },
     'mainEntityOfPage': {
       '@type': 'WebPage',
@@ -52,8 +52,8 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     'itemListElement': [
-      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://allaboutpawz.com' },
-      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': `https://allaboutpawz.com/guides#${data.pillar.toLowerCase()}` },
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.aapawz.com' },
+      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': `https://www.aapawz.com/guides#${data.pillar.toLowerCase()}` },
       { '@type': 'ListItem', 'position': 3, 'name': data.heroTitle, 'item': data.canonicalUrl },
     ],
   };
@@ -62,7 +62,7 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
     '@context': 'https://schema.org',
     '@type': 'PetGroomer',
     'name': 'All About Pawz',
-    'url': 'https://allaboutpawz.com',
+    'url': 'https://www.aapawz.com',
     'telephone': '+1-901-555-PAWZ',
     'address': {
       '@type': 'PostalAddress',

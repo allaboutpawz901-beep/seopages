@@ -18,15 +18,9 @@ interface IncentivesRowProps {
 export const IncentivesRow: React.FC<IncentivesRowProps> = ({ data, onExploreClick }) => {
   return (
     <section className="my-14 lg:my-20">
-      {/* Header with Square Pill Badge (Screenshot 1) */}
+      {/* Header (Screenshot 1) */}
       <div className="flex flex-col items-start mb-10">
         
-        {/* Status Badge (Square) */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-[#1e7e34] text-white text-xs font-bold tracking-wider uppercase mb-3 rounded-none">
-          <span className="text-[10px]">★</span>
-          <span>{data.incentivesKicker}</span>
-        </div>
-
         {/* Section Headline */}
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-950 tracking-tight mb-2">
           {data.incentivesHeadline}

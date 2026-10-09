@@ -378,7 +378,7 @@ export const GROOMING_ESSENTIALS_PROFILES: Record<string, DomainProfile> = {
       {
         id: 'midsouth-shedding-seasons',
         title: '4. Mid-South Seasonal Coat Blowing Cycles',
-        content: 'In Memphis and Shelby County, mild autumns and rapid springtime temperature surges confuse canine circadian shedding rhythms. Dogs typically blow coat heavily in April as temperatures hit 80°F, and again in October as winter undercoats develop. During these peak windows, daily line brushing prevents dead coat from compacting into dense mats.',
+        content: 'During seasonal weather shifts and rapid springtime temperature surges, canine circadian shedding rhythms trigger heavy coat blows. Dogs typically blow coat heavily in spring as temperatures rise, and again in autumn as winter undercoats develop. During these peak windows, daily line brushing prevents dead coat from compacting into dense mats.',
       },
     ],
     testimonials: [

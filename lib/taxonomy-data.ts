@@ -357,7 +357,7 @@ export const SAMPLE_PAGES: Record<string, GuidePageData> = {
     archetype: 'breed_grooming',
     metaTitle: 'Doodle Grooming Guide: Coat Care, Brushing & Salon Cuts | All About Pawz',
     metaDescription: 'Complete Goldendoodle, Labradoodle & Aussiedoodle grooming guide. Master daily slicker brushing, matting prevention, bath schedules, and salon cuts in Memphis, TN.',
-    canonicalUrl: 'https://allaboutpawz.com/doodle-grooming',
+    canonicalUrl: 'https://www.aapawz.com/doodle-grooming',
     targetKeyword: 'doodle grooming',
     secondaryKeywords: ['goldendoodle haircut', 'doodle matting prevention', 'line brushing doodle', 'memphis dog grooming'],
     readTime: '7 min read',
@@ -418,8 +418,8 @@ export const SAMPLE_PAGES: Record<string, GuidePageData> = {
     whyFeatures: [
       {
         icon: 'trust',
-        title: 'Groom in a salon more Mid-South pet parents trust',
-        description: 'Our certified master stylists specialize in high-maintenance hybrid coats. Ranked among the most trusted pet salons in Memphis and Shelby County with fear-free certified handling.',
+        title: 'Groom in a salon more pet parents trust',
+        description: 'Our certified master stylists specialize in high-maintenance hybrid coats, utilizing low-stress handling protocols and fear-free certified techniques.',
       },
       {
         icon: 'tools',
@@ -491,7 +491,7 @@ export const SAMPLE_PAGES: Record<string, GuidePageData> = {
       {
         id: 'popular-cuts',
         title: '3. Popular Salon Haircuts & Styles',
-        content: 'When you bring your doodle to All About Pawz in Memphis, our pet stylists customize blade lengths and scissor work to match your lifestyle and activity levels. From active outdoor romps at Shelby Farms Park to pampered indoor teddy bear silhouettes, here are our most requested styles:',
+        content: 'When you bring your doodle to All About Pawz, our pet stylists customize blade lengths and scissor work to match your lifestyle and activity levels. From active outdoor romps to pampered indoor teddy bear silhouettes, here are our most requested styles:',
         tableData: {
           headers: ['Style Name', 'Body Length', 'Head & Muzzle Style', 'Maintenance Level', 'Best For'],
           rows: [
@@ -579,8 +579,8 @@ export const SAMPLE_PAGES: Record<string, GuidePageData> = {
         answer: 'A puppy cut trims the coat to a uniform 1/2-inch length over the entire body, legs, and face. A teddy bear cut keeps the face rounded, ears trimmed to the leather, and legs slightly fuller like a stuffed plush toy.',
       },
       {
-        question: 'Why do groomers require proof of rabies vaccination in Memphis, TN?',
-        answer: 'Under Tennessee State Health Law and Shelby County ordinances, all dogs and cats over 4 months of age must be vaccinated against rabies to protect other pets and human handlers. Rabies certificates must be verified prior to entry.',
+        question: 'Why do salon groomers require proof of rabies vaccination?',
+        answer: 'Under state veterinary public health standards and salon safety mandates, all dogs and cats over 4 months of age must be vaccinated against rabies to protect other pets and human handlers. Valid rabies certificates must be verified prior to entry.',
       },
       {
         question: 'Do you offer fear-free accommodations for nervous or rescue Doodles?',
@@ -623,7 +623,7 @@ export function getGuideDataBySlug(slug: string): GuidePageData {
     for (const cat of PRODUCT_CATEGORIES) {
       if (cat.slug === slug) {
         foundItem = { name: `${cat.name} Buying & Care Guide`, slug: cat.slug, path: `/${cat.slug}` };
-        foundPillar = 'Feeding & Watering';
+        foundPillar = cat.name;
         break;
       }
       if (cat.children) {
@@ -662,7 +662,7 @@ export function getGuideDataBySlug(slug: string): GuidePageData {
     archetype,
     metaTitle: profile.heroTitle ? `${profile.heroTitle} | All About Pawz` : `${title} | All About Pawz Guide & Mid-South Pet Care`,
     metaDescription: profile.heroSubheadline ? `${profile.heroSubheadline}` : `Comprehensive guide to ${title.toLowerCase()}. Master expert tips, veterinary-reviewed best practices, and salon recommendations in Memphis & Shelby County.`,
-    canonicalUrl: `https://allaboutpawz.com${pagePath}`,
+    canonicalUrl: `https://www.aapawz.com${pagePath}`,
     targetKeyword: title.toLowerCase(),
     secondaryKeywords: [`${title.toLowerCase()} tips`, 'memphis pet care', 'all about pawz guide', 'shelby county dog care'],
     readTime: '6 min read',
@@ -676,17 +676,17 @@ export function getGuideDataBySlug(slug: string): GuidePageData {
       name: 'Dr. Michael Vance, DVM',
       title: 'Mid-South Veterinary Consultant',
     },
-    kickerBadge: profile.kicker || (isLocal ? 'Local Shelby County Service' : isNutrition ? 'Holistic Nutrition Standard' : 'Professional Care Standard'),
-    heroTitle: profile.heroTitle || (isLocal ? `Professional Pet Grooming in ${title.replace('Pet Grooming in ', '')}` : `The Complete Guide to ${title}`),
-    heroSubheadline: profile.heroSubheadline || `Veterinary-backed advice, salon-tested techniques, and curated pet supplies tailored specifically to Mid-South pet parents and dogs across Memphis, Bartlett, Collierville, and Shelby County.`,
-    heroCtaText: isLocal ? 'Book Local Salon*' : isNutrition ? 'Find Your Pet’s Diet*' : 'Explore Guide & Tools*',
+    kickerBadge: profile.kicker || (isNutrition ? 'Holistic Nutrition Standard' : 'Professional Care Standard'),
+    heroTitle: profile.heroTitle || `The Complete Guide to ${title}`,
+    heroSubheadline: profile.heroSubheadline || `Veterinary-backed advice, salon-tested techniques, and curated pet supplies tailored specifically to long-term health and coat vitality.`,
+    heroCtaText: isLocal ? 'Book Appointment*' : isNutrition ? 'Find Your Pet’s Diet*' : 'Explore Guide & Tools*',
     heroCtaSubtext: 'Certified fear-free handlers & master groomers',
-    heroFootnote: '*Serving Memphis, Bartlett, Collierville, Germantown, Arlington, Millington & Shelby County, TN.',
+    heroFootnote: '*Certified master groomers and fear-free handling protocols.',
     heroImageUrl: '/images/hero_grooming_dog_1791411047518.jpg',
     heroImageAlt: `${title} featured care guide`,
     heroRatingText: '4.9 out of 5 stars',
-    heroRatingCount: '450+ Shelby County Pets Cared For',
-    incentivesKicker: 'Salon-Grade Standards',
+    heroRatingCount: '500+ Verified Pet Parents',
+    incentivesKicker: 'Clinical Care Standards',
     incentivesHeadline: `Essential principles for ${title.toLowerCase()}`,
     incentivesSubhead: `Take advantage of our veterinary-aligned protocols designed to keep your companion healthy, comfortable, and vibrant.`,
     incentivesLinkText: 'See all care protocols ↗',
@@ -911,3 +911,44 @@ export function getLocalCitySlugs(): string[] {
     'shelby-county',
   ];
 }
+
+export interface GuideSearchItem {
+  name: string;
+  url: string;
+  group: string;
+}
+
+export function getAllSearchItems(): GuideSearchItem[] {
+  const items: GuideSearchItem[] = [];
+  
+  GUIDES_DIRECTORY.forEach(pillar => {
+    pillar.subcategories.forEach(sub => {
+      sub.items.forEach(item => {
+        items.push({
+          name: item.name,
+          url: item.path,
+          group: pillar.pillar,
+        });
+      });
+    });
+  });
+
+  PRODUCT_CATEGORIES.forEach(cat => {
+    items.push({
+      name: `${cat.name} (Overview)`,
+      url: `/${cat.slug}`,
+      group: 'Supplies',
+    });
+    cat.children?.forEach(sub => {
+      items.push({
+        name: sub.name,
+        url: `/${cat.slug}/${sub.slug}`,
+        group: cat.name,
+      });
+    });
+  });
+
+  return items;
+}
+
+export const ALL_GUIDE_ITEMS: GuideSearchItem[] = getAllSearchItems();

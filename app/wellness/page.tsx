@@ -6,12 +6,12 @@ import { SeoPageTemplate } from '@/components/SeoPageTemplate';
 export const dynamic = 'force-static';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = getGuideDataBySlug('grooming-essentials');
+  const data = getGuideDataBySlug('wellness');
 
   if (!data) {
     return {
-      title: 'Grooming Essentials: Needed for Home Care | All About Pawz',
-      description: 'Veterinary-grade home pet grooming essentials, styptic powders, safety shears, clippers, and coat care standards.',
+      title: 'Pet Wellness Guides | All About Pawz',
+      description: 'Supplements, itch remedies, hip and joint care, dental and ear care.',
     };
   }
 
@@ -19,12 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data.metaTitle,
     description: data.metaDescription,
     alternates: {
-      canonical: 'https://www.aapawz.com/grooming-essentials',
+      canonical: 'https://www.aapawz.com/wellness',
     },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,
-      url: 'https://www.aapawz.com/grooming-essentials',
+      url: 'https://www.aapawz.com/wellness',
       siteName: 'All About Pawz',
       images: [
         {
@@ -46,8 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function GroomingEssentialsParentPage() {
-  const data = getGuideDataBySlug('grooming-essentials');
+export default function WellnessPage() {
+  const data = getGuideDataBySlug('wellness');
 
   if (!data) {
     notFound();

@@ -19,7 +19,7 @@ export const DOMAIN_PROFILES: Record<string, Partial<DomainProfile>> = {
     kicker: 'Double-Coat Water Dog Protocol',
     heroTitle: 'Labrador Retriever Coat Care & Deshedding Guide',
     heroSubheadline: 'Preserve your Lab’s water-repellent guard hairs, manage seasonal shedding blowout, and prevent Mid-South ear yeast infections with salon-grade care.',
-    introSummary: 'Labrador Retrievers have a dense, weather-resistant double coat designed to repel icy water. However, in Memphis and Shelby County’s humid summers, dead undercoat becomes trapped against the skin, locking in moisture from swims in Shelby Farms Park or backyard sprinklers. This complete guide details the correct deshedding protocols, bathing cadences, and ear flushes to keep your Lab sleek and odor-free.',
+    introSummary: 'Labrador Retrievers have a dense, weather-resistant double coat designed to repel icy water. However, during humid summers and active swimming sessions, dead undercoat becomes trapped against the skin, locking in moisture. This complete guide details the correct deshedding protocols, bathing cadences, and ear flushes to keep your Lab sleek and odor-free.',
     takeaways: [
       {
         icon: 'scissors',

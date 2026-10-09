@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
-import { getAllSlugs, getLocalCitySlugs } from '@/lib/taxonomy-data';
+import { getAllSlugs, getLocalCitySlugs, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://allaboutpawz.com';
+  const baseUrl = 'https://www.aapawz.com';
   const currentDate = new Date().toISOString();
 
   const routes: MetadataRoute.Sitemap = [
@@ -20,43 +20,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Feeding & Watering Master Pillar & Subcategories
-  const feedingSubcategories = [
-    'water-bottles',
-    'nursing-supplies',
-    'lick-mats',
-    'fountains',
-    'food-storage',
-    'feeding-mats',
-    'bowls-and-dishes',
-    'automatic-feeders',
-  ];
-
-  routes.push({
-    url: `${baseUrl}/feeding-and-watering`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly',
-    priority: 0.9,
-  });
-
-  feedingSubcategories.forEach((sub) => {
+  // Add all canonical product category top-level & subcategory paths
+  PRODUCT_CATEGORIES.forEach((cat) => {
     routes.push({
-      url: `${baseUrl}/feeding-and-watering/${sub}`,
+      url: `${baseUrl}/${cat.slug}`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.85,
+      priority: 0.9,
+    });
+
+    cat.children?.forEach((sub) => {
+      routes.push({
+        url: `${baseUrl}/${cat.slug}/${sub.slug}`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
+        priority: 0.85,
+      });
     });
   });
 
-  // All 100+ SEO Guides and Product Categories
-  const slugs = getAllSlugs();
-  slugs.forEach((slug) => {
-    routes.push({
-      url: `${baseUrl}/${slug}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    });
+  // Add all guide slugs
+  const allSlugs = getAllSlugs();
+  allSlugs.forEach((slug) => {
+    // Avoid re-adding slugs already formatted as category children
+    const isProductCategorySlug = PRODUCT_CATEGORIES.some(c => c.slug === slug);
+    if (!isProductCategorySlug) {
+      routes.push({
+        url: `${baseUrl}/${slug}`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      });
+    }
   });
 
   // Local Mid-South City Landing Pages

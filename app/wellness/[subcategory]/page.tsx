@@ -3,18 +3,15 @@ import { notFound } from 'next/navigation';
 import { getGuideDataBySlug } from '@/lib/taxonomy-data';
 import { SeoPageTemplate } from '@/components/SeoPageTemplate';
 
-const GROOMING_ESSENTIALS_SUBCATEGORIES = [
-  'styptic-gels-and-powders',
-  'shower-and-bath-supplies',
-  'shedding-tools',
-  'shampoos-and-conditioners',
-  'scissors',
-  'hair-removal-mitts-and-rollers',
-  'grooming-wipes',
-  'electric-clippers-and-blades',
-  'deodorizers',
-  'dematting-tools',
-  'medicated-shampoos',
+const WELLNESS_SUBCATEGORIES = [
+  'supplements-and-vitamins',
+  'itch-remedies',
+  'hip-and-joint-care',
+  'eye-care',
+  'ear-care',
+  'dna-tests',
+  'digestive-remedies',
+  'dental-care',
 ];
 
 interface PageProps {
@@ -24,7 +21,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return GROOMING_ESSENTIALS_SUBCATEGORIES.map((subcategory) => ({
+  return WELLNESS_SUBCATEGORIES.map((subcategory) => ({
     subcategory,
   }));
 }
@@ -36,11 +33,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!data) {
     return {
       title: 'Guide Not Found | All About Pawz',
-      description: 'The requested grooming care guide could not be found.',
+      description: 'The requested wellness guide could not be found.',
     };
   }
 
-  const canonical = `https://www.aapawz.com/grooming-essentials/${subcategory}`;
+  const canonical = `https://www.aapawz.com/wellness/${subcategory}`;
 
   return {
     title: data.metaTitle,
@@ -73,7 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function GroomingEssentialsSubcategoryPage({ params }: PageProps) {
+export default async function WellnessSubcategoryPage({ params }: PageProps) {
   const { subcategory } = await params;
   const data = getGuideDataBySlug(subcategory);
 

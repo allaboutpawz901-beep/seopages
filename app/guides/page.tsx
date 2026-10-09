@@ -6,15 +6,15 @@ import { Footer } from '@/components/Footer';
 import { 
   ChevronRight, 
   FileText, 
-  Sparkles, 
+  BookOpen, 
   Folder
 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Complete Pet Care & Grooming Guides Directory | All About Pawz',
-  description: 'Explore all 100+ veterinary-reviewed pet care, breed grooming, canine nutrition, and health guides for Memphis and Shelby County, TN.',
+  description: 'Explore our complete library of veterinary-reviewed pet care, breed grooming, canine nutrition, and health guides.',
   alternates: {
-    canonical: 'https://allaboutpawz.com/guides',
+    canonical: 'https://www.aapawz.com/guides',
   },
 };
 
@@ -27,7 +27,7 @@ export default function GuidesDirectoryPage() {
         {/* Hub Header */}
         <div className="border-b border-stone-200 pb-10 mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-stone-900 text-white text-xs font-bold uppercase tracking-wider mb-4 rounded-none border border-stone-900">
-            <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+            <BookOpen className="w-3.5 h-3.5 text-orange-500" />
             <span>Master Knowledge Base</span>
           </div>
 

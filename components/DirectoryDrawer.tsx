@@ -5,7 +5,7 @@ import {
   Folder, 
   FolderOpen, 
   FileText, 
-  Sparkles, 
+  ShieldCheck, 
   ChevronRight, 
   Check, 
   Search
@@ -44,7 +44,7 @@ export const DirectoryDrawer: React.FC<DirectoryDrawerProps> = ({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-300">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">
-            <Sparkles className="w-4 h-4" />
+            <ShieldCheck className="w-4 h-4" />
             <span>Complete Taxonomy Architecture</span>
           </div>
           <h2 className="text-2xl font-black text-stone-900 tracking-tight">

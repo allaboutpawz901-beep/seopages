@@ -17,10 +17,10 @@ export function generateStandaloneHtml(data: GuidePageData): string {
     'publisher': {
       '@type': 'Organization',
       'name': 'All About Pawz',
-      'url': 'https://allaboutpawz.com',
+      'url': 'https://www.aapawz.com',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://allaboutpawz.com/logo.png',
+        'url': 'https://www.aapawz.com/logo.png',
       },
     },
     'mainEntityOfPage': {
@@ -37,13 +37,13 @@ export function generateStandaloneHtml(data: GuidePageData): string {
         '@type': 'ListItem',
         'position': 1,
         'name': 'Home',
-        'item': 'https://allaboutpawz.com',
+        'item': 'https://www.aapawz.com',
       },
       {
         '@type': 'ListItem',
         'position': 2,
         'name': data.pillar,
-        'item': `https://allaboutpawz.com/guides#${data.pillar.toLowerCase()}`,
+        'item': `https://www.aapawz.com/guides#${data.pillar.toLowerCase()}`,
       },
       {
         '@type': 'ListItem',
@@ -58,9 +58,9 @@ export function generateStandaloneHtml(data: GuidePageData): string {
     '@context': 'https://schema.org',
     '@type': 'PetGroomer',
     'name': 'All About Pawz - Grooming & Pet Care',
-    'image': 'https://allaboutpawz.com/images/hero_grooming_dog_1791411047518.jpg',
-    '@id': 'https://allaboutpawz.com/#localbusiness',
-    'url': 'https://allaboutpawz.com',
+    'image': 'https://www.aapawz.com/images/hero_grooming_dog_1791411047518.jpg',
+    '@id': 'https://www.aapawz.com/#localbusiness',
+    'url': 'https://www.aapawz.com',
     'telephone': '+1-901-555-PAWZ',
     'priceRange': '$$',
     'address': {
@@ -792,7 +792,7 @@ ${jsonLdFaqStr}
   <!-- TOP BAR -->
   <header class="topbar">
     <div class="container topbar-inner">
-      <a href="https://allaboutpawz.com" class="brand">
+      <a href="https://www.aapawz.com" class="brand">
         <span class="brand-paw">🐾</span>
         <span>All About Pawz</span>
       </a>
@@ -817,9 +817,9 @@ ${jsonLdFaqStr}
 
   <!-- BREADCRUMB BAR -->
   <div class="container breadcrumb-bar">
-    <a href="https://allaboutpawz.com">Home</a>
+    <a href="https://www.aapawz.com">Home</a>
     <span>/</span>
-    <a href="https://allaboutpawz.com/guides#${data.pillar.toLowerCase()}">${data.pillar}</a>
+    <a href="https://www.aapawz.com/guides#${data.pillar.toLowerCase()}">${data.pillar}</a>
     <span>/</span>
     <strong>${data.heroTitle}</strong>
   </div>
@@ -874,7 +874,7 @@ ${jsonLdFaqStr}
         ${data.takeawayCards.map(card => `
         <div class="card-incentive">
           <div class="card-icon">
-            ${card.icon === 'scissors' ? '✂️' : card.icon === 'sparkles' ? '✨' : card.icon === 'clock' ? '⏱️' : card.icon === 'shield' ? '🛡️' : '🐾'}
+            ${card.icon === 'scissors' ? '✂️' : card.icon === 'sparkles' ? '🧼' : card.icon === 'clock' ? '⏱️' : card.icon === 'shield' ? '🛡️' : '🐾'}
           </div>
           <h3 class="card-title">${card.title}</h3>
           <ul class="checklist">

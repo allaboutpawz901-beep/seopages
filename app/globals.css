@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-cream: oklch(0.972 0.011 88);
+  --color-cream-deep: oklch(0.949 0.016 87);
+  --color-ink: oklch(0.17 0.006 60);
+  --color-ink-soft: oklch(0.223 0.008 62);
+  --color-gold: oklch(0.68 0.098 68);
+  --color-gold-deep: oklch(0.6 0.093 62);
+  --color-gold-light: oklch(0.79 0.075 76);
+  --color-on-dark: oklch(0.955 0.012 88);
+  --color-on-dark-muted: oklch(0.8 0.014 84);
+}
+
 /* Strict Sharp Architectural Geometry: All components square, zero rounded edges */
 *,
 *::before,
