@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   ChevronRight, 
-  Star, 
   MapPin, 
   ChevronDown, 
   Clock, 
@@ -24,6 +23,7 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
 }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [activeTocId, setActiveTocId] = useState<string>(data.tableOfContents[0]?.id || '');
+  const isProductCategory = data.archetype === 'product_category';
 
   const getCityPath = (city: string) => {
     const clean = city.toLowerCase();
@@ -89,7 +89,7 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
           {/* Executive Intro Summary (Square Callout) */}
           <div className="bg-[#F8F7F4] border-l-4 border-stone-900 p-6 sm:p-7 rounded-none border-y border-r border-stone-300">
             <h3 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">
-              Clinical & Salon Overview
+              {isProductCategory ? 'Category Overview' : 'Clinical & Salon Overview'}
             </h3>
             <p className="text-base sm:text-lg text-stone-900 leading-relaxed font-normal">
               {data.introSummary}
@@ -115,7 +115,7 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
               {section.tips && (
                 <div className="my-6 bg-white border border-stone-300 p-6 rounded-none shadow-xs">
                   <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-4">
-                    Recommended Salon Protocol
+                    {isProductCategory ? 'Selection Tips' : 'Recommended Salon Protocol'}
                   </h4>
                   <ul className="space-y-3 text-sm text-stone-700">
                     {section.tips.map((tip, idx) => (
@@ -169,7 +169,28 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
             </section>
           ))}
 
+          {isProductCategory && data.relatedArticles && data.relatedArticles.length > 0 && (
+            <section id="related-categories" className="pt-8 border-t border-stone-300">
+              <h2 className="text-2xl font-black text-stone-950 tracking-tight mb-5">
+                Related {data.pillar} Categories
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {data.relatedArticles.map((article) => (
+                  <Link
+                    key={article.path}
+                    href={article.path}
+                    className="border border-stone-300 p-4 flex items-center justify-between gap-3 text-sm font-semibold text-stone-900 hover:border-orange-600 hover:text-orange-700 transition-colors"
+                  >
+                    <span>{article.title}</span>
+                    <ChevronRight className="w-4 h-4 shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* Related Supplies & Equipment Grid (Square Cards) */}
+          {!isProductCategory && (
           <section id="recommended-gear" className="pt-8 border-t border-stone-300">
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -196,11 +217,6 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
                   className="bg-white border border-stone-300 p-5 flex flex-col justify-between hover:border-stone-500 transition-colors rounded-none shadow-xs"
                 >
                   <div>
-                    {product.badge && (
-                      <span className="inline-block text-[10px] font-bold text-stone-900 bg-stone-100 border border-stone-200 px-2 py-0.5 mb-3 rounded-none">
-                        {product.badge}
-                      </span>
-                    )}
                     <h4 className="text-sm font-bold text-stone-950 mb-1 leading-snug">
                       {product.name}
                     </h4>
@@ -217,11 +233,6 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
                       <span className="text-base font-black text-stone-950">
                         {product.price}
                       </span>
-                      <div className="flex items-center gap-1 text-xs text-stone-700 font-semibold">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
-                        <span>{product.rating}</span>
-                        <span className="text-stone-400">({product.reviewsCount})</span>
-                      </div>
                     </div>
 
                     <Link 
@@ -235,9 +246,10 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
               ))}
             </div>
           </section>
+          )}
 
           {/* Local Mid-South Cities Showcase (Square) */}
-          <section id="local-service-areas" className="pt-8 border-t border-stone-300">
+          {!isProductCategory && <section id="local-service-areas" className="pt-8 border-t border-stone-300">
             <div className="bg-[#1C1917] text-white p-8 lg:p-10 rounded-none border border-stone-800">
               <div className="flex items-center gap-2 text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">
                 <MapPin className="w-4 h-4 text-orange-500" />
@@ -264,11 +276,12 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
               </div>
             </div>
           </section>
+          }
 
           {/* FAQ Accordion Section (Square Accordion Items) */}
           <section id="faq" className="pt-8 border-t border-stone-300">
             <div className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">
-              Veterinary & Salon Questions
+              {isProductCategory ? 'Product Category Questions' : 'Veterinary & Salon Questions'}
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-stone-950 tracking-tight mb-6">
               Frequently Asked Questions

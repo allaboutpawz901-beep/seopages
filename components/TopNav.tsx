@@ -23,7 +23,8 @@ import {
   CalendarDays,
   Mail
 } from 'lucide-react';
-import { ALL_GUIDE_ITEMS } from '@/lib/taxonomy-data';
+import { ALL_GUIDE_ITEMS, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
+import { CategoryNode } from '@/lib/types';
 
 const UPSTREAM_NAV = [
   { n: "01", label: "HOME", to: "/" },
@@ -39,17 +40,43 @@ const UPSTREAM_NAV = [
   { n: "11", label: "LEARN", to: "/guides" },
 ] as const;
 
+const ANIMAL_CATEGORIES = PRODUCT_CATEGORIES.filter((category) =>
+  ['fish-and-aquatics', 'bird', 'reptile', 'small-animal'].includes(category.slug),
+);
+
+function getAnimalMenuSection(category: CategoryNode) {
+  const nestedGroup = category.children?.length === 1 && category.children[0].children?.length
+    ? category.children[0]
+    : category;
+  const parentPath = nestedGroup === category
+    ? [category.slug]
+    : [category.slug, nestedGroup.slug];
+
+  return {
+    title: nestedGroup.name,
+    links: nestedGroup.children?.length
+      ? nestedGroup.children.map((item) => ({
+          title: item.name,
+          path: `/${[...parentPath, item.slug].join('/')}`,
+        }))
+      : [{ title: nestedGroup.name, path: `/${parentPath.join('/')}` }],
+  };
+}
+
 interface TopNavProps {
   onBookClick?: () => void;
 }
 
 export const TopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [activeAnimalCategory, setActiveAnimalCategory] = useState(ANIMAL_CATEGORIES[0]?.slug || '');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const selectedAnimalCategory = ANIMAL_CATEGORIES.find((category) => category.slug === activeAnimalCategory) || ANIMAL_CATEGORIES[0];
+  const animalMenuSection = selectedAnimalCategory ? getAnimalMenuSection(selectedAnimalCategory) : null;
 
   // Search filter across all guides and categories computed via useMemo
   const searchResults = useMemo(() => {
@@ -782,6 +809,83 @@ export const TopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
                     <div className="mt-5 pt-3 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-500 bg-neutral-50 p-3">
                       <span>Tested by certified master groomers and veterinary technicians.</span>
                       <Link href="/guides#buying-guides" onClick={() => setActiveMenu(null)} className="font-bold text-black hover:text-blue-600">All Buying Guides ↗</Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div
+                className="relative"
+                onMouseEnter={() => setActiveMenu('animal-categories')}
+                onMouseLeave={() => setActiveMenu(null)}
+              >
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={activeMenu === 'animal-categories'}
+                  onClick={() => setActiveMenu(activeMenu === 'animal-categories' ? null : 'animal-categories')}
+                  className={`flex items-center gap-1 px-2.5 py-2 transition-colors cursor-pointer border border-transparent ${
+                    activeMenu === 'animal-categories' ? 'bg-neutral-100 text-black border-neutral-300 font-bold' : 'hover:bg-neutral-50 text-neutral-800'
+                  }`}
+                >
+                  <PawPrint className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Other Pets</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === 'animal-categories' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {activeMenu === 'animal-categories' && selectedAnimalCategory && animalMenuSection && (
+                  <div className="absolute left-0 top-full pt-2 z-50 w-[min(820px,calc(100vw-2rem))]">
+                    <div className="grid grid-cols-[180px_1fr] bg-white border border-stone-300 shadow-2xl">
+                      <div className="border-r border-stone-200 bg-stone-50 p-3" role="tablist" aria-label="Pet categories">
+                        {ANIMAL_CATEGORIES.map((category) => (
+                          <button
+                            key={category.slug}
+                            type="button"
+                            role="tab"
+                            aria-selected={activeAnimalCategory === category.slug}
+                            onMouseEnter={() => setActiveAnimalCategory(category.slug)}
+                            onFocus={() => setActiveAnimalCategory(category.slug)}
+                            onClick={() => setActiveAnimalCategory(category.slug)}
+                            className={`w-full px-3 py-2.5 text-left text-xs font-bold transition-colors ${
+                              activeAnimalCategory === category.slug
+                                ? 'bg-stone-900 text-white'
+                                : 'text-stone-700 hover:bg-white hover:text-stone-950'
+                            }`}
+                          >
+                            {category.name}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="p-5 sm:p-6 max-h-[70vh] overflow-y-auto" role="tabpanel">
+                        <div className="flex items-start justify-between gap-4 border-b border-stone-200 pb-3 mb-4">
+                          <div>
+                            <p className="text-[10px] font-bold uppercase text-stone-500">Browse by animal</p>
+                            <h3 className="mt-1 text-lg font-black text-stone-950">{selectedAnimalCategory.name}</h3>
+                          </div>
+                          <Link
+                            href={`/${selectedAnimalCategory.slug}`}
+                            onClick={() => setActiveMenu(null)}
+                            className="shrink-0 text-xs font-bold text-blue-700 hover:underline"
+                          >
+                            View all {selectedAnimalCategory.name} guides
+                          </Link>
+                        </div>
+
+                        <h4 className="mb-3 text-[10px] font-bold uppercase text-stone-500">{animalMenuSection.title}</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1">
+                          {animalMenuSection.links.map((item) => (
+                            <Link
+                              key={item.path}
+                              href={item.path}
+                              onClick={() => setActiveMenu(null)}
+                              className="border-b border-stone-100 py-2 text-xs font-medium text-stone-700 hover:text-blue-700"
+                            >
+                              {item.title}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}

@@ -88,7 +88,6 @@ export interface GuidePageData {
   };
   
   // Hero Section (Amazon style)
-  kickerBadge: string;
   heroTitle: string;
   heroSubheadline: string;
   heroCtaText: string;
@@ -96,11 +95,8 @@ export interface GuidePageData {
   heroFootnote: string;
   heroImageUrl: string;
   heroImageAlt: string;
-  heroRatingText: string;
-  heroRatingCount: string;
 
   // 3-Card Incentives / Takeaways Section (Amazon Screenshot 1)
-  incentivesKicker: string;
   incentivesHeadline: string;
   incentivesSubhead: string;
   incentivesLinkText: string;
@@ -117,6 +113,7 @@ export interface GuidePageData {
   tableOfContents: { id: string; label: string }[];
   sections: ArticleSection[];
   relatedProducts: RelatedProductItem[];
+  relatedArticles?: { title: string; path: string }[];
   faqs: FaqItem[];
   
   // Local Mid-South connection

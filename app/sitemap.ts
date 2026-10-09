@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllSlugs, getLocalCitySlugs, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
+import { GUIDES_DIRECTORY, getProductCategoryPaths } from '@/lib/taxonomy-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.aapawz.com';
@@ -20,48 +20,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Add all canonical product category top-level & subcategory paths
-  PRODUCT_CATEGORIES.forEach((cat) => {
+  getProductCategoryPaths().forEach((path) => {
     routes.push({
-      url: `${baseUrl}/${cat.slug}`,
+      url: `${baseUrl}${path}`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.9,
-    });
-
-    cat.children?.forEach((sub) => {
-      routes.push({
-        url: `${baseUrl}/${cat.slug}/${sub.slug}`,
-        lastModified: currentDate,
-        changeFrequency: 'weekly',
-        priority: 0.85,
-      });
+      priority: path.split('/').length <= 2 ? 0.9 : 0.85,
     });
   });
 
-  // Add all guide slugs
-  const allSlugs = getAllSlugs();
-  allSlugs.forEach((slug) => {
-    // Avoid re-adding slugs already formatted as category children
-    const isProductCategorySlug = PRODUCT_CATEGORIES.some(c => c.slug === slug);
-    if (!isProductCategorySlug) {
-      routes.push({
-        url: `${baseUrl}/${slug}`,
-        lastModified: currentDate,
-        changeFrequency: 'monthly',
-        priority: 0.8,
+  GUIDES_DIRECTORY.forEach((pillar) => {
+    pillar.subcategories.forEach((subcategory) => {
+      subcategory.items.forEach((item) => {
+        routes.push({
+          url: `${baseUrl}${item.path}`,
+          lastModified: currentDate,
+          changeFrequency: 'monthly',
+          priority: 0.8,
+        });
       });
-    }
-  });
-
-  // Local Mid-South City Landing Pages
-  const cities = getLocalCitySlugs();
-  cities.forEach((city) => {
-    routes.push({
-      url: `${baseUrl}/grooming/${city}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
     });
   });
 

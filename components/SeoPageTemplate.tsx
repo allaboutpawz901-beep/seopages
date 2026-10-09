@@ -17,6 +17,7 @@ interface SeoPageTemplateProps {
 export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(data.serviceCity || 'Memphis, TN');
+  const isProductCategory = data.archetype === 'product_category';
 
   const handleBookCity = (city: string) => {
     setSelectedCity(city);
@@ -48,35 +49,27 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
     },
   };
 
+  const categorySegments = data.path.split('/').filter(Boolean);
   const breadcrumbsSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     'itemListElement': [
       { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.aapawz.com' },
-      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': `https://www.aapawz.com/guides#${data.pillar.toLowerCase()}` },
-      { '@type': 'ListItem', 'position': 3, 'name': data.heroTitle, 'item': data.canonicalUrl },
+      ...(data.archetype === 'product_category'
+        ? categorySegments.slice(0, -1).map((segment, index) => ({
+            '@type': 'ListItem',
+            'position': index + 2,
+            'name': index === 0 ? data.pillar : segment.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()),
+            'item': `https://www.aapawz.com/${categorySegments.slice(0, index + 1).join('/')}`,
+          }))
+        : []),
+      {
+        '@type': 'ListItem',
+        'position': data.archetype === 'product_category' ? categorySegments.length + 1 : 2,
+        'name': data.heroTitle,
+        'item': data.canonicalUrl,
+      },
     ],
-  };
-
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'PetGroomer',
-    'name': 'All About Pawz',
-    'url': 'https://www.aapawz.com',
-    'telephone': '+1-901-555-PAWZ',
-    'address': {
-      '@type': 'PostalAddress',
-      'addressLocality': 'Memphis',
-      'addressRegion': 'TN',
-      'postalCode': '38138',
-      'addressCountry': 'US',
-    },
-    'areaServed': ['Memphis, TN', 'Bartlett, TN', 'Collierville, TN', 'Germantown, TN', 'Shelby County, TN'],
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': '4.9',
-      'reviewCount': '450',
-    },
   };
 
   const faqSchema = {
@@ -106,10 +99,6 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
@@ -122,7 +111,13 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
         {/* Amazon-styled Hero Section (Screenshot 3) */}
         <HeroBanner
           data={data}
-          onBookClick={() => setIsBookingModalOpen(true)}
+          onBookClick={() => {
+            if (isProductCategory) {
+              document.getElementById('guide-content')?.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              setIsBookingModalOpen(true);
+            }
+          }}
         />
 
         {/* Amazon-styled 3-Card Incentives / Care Standards Row (Screenshot 1) */}
@@ -135,10 +130,12 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
         />
 
         {/* Amazon-styled "Why Choose All About Pawz" 2-Column Section (Screenshot 2) */}
-        <WhyFeaturesCol
-          data={data}
-          onLearnMore={() => setIsBookingModalOpen(true)}
-        />
+        {!isProductCategory && (
+          <WhyFeaturesCol
+            data={data}
+            onLearnMore={() => setIsBookingModalOpen(true)}
+          />
+        )}
 
         {/* Longform Editorial Guide: TOC, Step-by-Step, Comparison Table, Supplies, FAQs */}
         <ArticleBodyView

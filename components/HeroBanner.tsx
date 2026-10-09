@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Star } from 'lucide-react';
 import { GuidePageData } from '@/lib/types';
 
 interface HeroBannerProps {
@@ -19,11 +18,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ data, onBookClick }) => 
         {/* Left Editorial Text Column */}
         <div className="lg:col-span-7 flex flex-col items-start">
           
-          {/* Status Kicker Badge (Square) */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-stone-900 text-white text-xs font-bold tracking-wider uppercase mb-5 rounded-none border border-stone-900">
-            <span>{data.kickerBadge}</span>
-          </div>
-
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-extrabold text-stone-950 tracking-tight leading-[1.08] mb-5 text-balance">
             {data.heroTitle}
@@ -51,7 +45,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ data, onBookClick }) => 
 
         </div>
 
-        {/* Right Media Column with Prime-style Rating Overlay (Square) */}
+        {/* Right Media Column */}
         <div className="lg:col-span-5 relative">
           <div className="relative overflow-hidden shadow-md aspect-4/3 sm:aspect-16/10 lg:aspect-4/3 bg-stone-200 rounded-none border border-stone-300">
             <Image
@@ -64,20 +58,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ data, onBookClick }) => 
               referrerPolicy="no-referrer"
             />
             
-            {/* Amazon-style Review Rating Badge (Square) */}
-            <div className="absolute bottom-4 right-4 bg-white px-4 py-2.5 shadow-lg border border-stone-300 flex items-center gap-3 rounded-none">
-              <div className="flex items-center gap-0.5 text-amber-500">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-500" />
-                ))}
-              </div>
-              <div className="text-xs font-bold text-stone-900 leading-none">
-                {data.heroRatingText}
-                <div className="text-[10px] text-stone-500 font-normal mt-0.5">
-                  {data.heroRatingCount}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 

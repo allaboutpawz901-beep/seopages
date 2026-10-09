@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { GUIDES_DIRECTORY, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
+import { CategoryNode } from '@/lib/types';
 import { TopNav } from '@/components/TopNav';
 import { Footer } from '@/components/Footer';
 import { 
@@ -17,6 +18,24 @@ export const metadata: Metadata = {
     canonical: 'https://www.aapawz.com/guides',
   },
 };
+
+function CategoryLinks({ nodes, parentPath }: { nodes: CategoryNode[]; parentPath: string }) {
+  return (
+    <ul className="space-y-1.5 text-xs text-stone-600">
+      {nodes.map((node) => {
+        const path = `${parentPath}/${node.slug}`;
+        return (
+          <li key={path}>
+            <Link href={path} className="block py-1 hover:text-orange-600 transition-colors">
+              {node.name}
+            </Link>
+            {node.children && <CategoryLinks nodes={node.children} parentPath={path} />}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export default function GuidesDirectoryPage() {
   return (
@@ -171,7 +190,7 @@ export default function GuidesDirectoryPage() {
                   Product Categories & Supply Catalogs
                 </h2>
                 <p className="text-xs font-mono text-stone-400 mt-0.5">
-                  10 Core Categories and all subcategories
+                  {PRODUCT_CATEGORIES.length} Core Categories and all subcategories
                 </p>
               </div>
             </div>
@@ -188,18 +207,7 @@ export default function GuidesDirectoryPage() {
                     </Link>
 
                     {cat.children && (
-                      <ul className="space-y-1.5 text-xs text-stone-600">
-                        {cat.children.map((sub) => (
-                          <li key={sub.slug}>
-                            <Link
-                              href={`/${sub.slug}`}
-                              className="block py-1 hover:text-orange-600 transition-colors"
-                            >
-                              › {sub.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                      <CategoryLinks nodes={cat.children} parentPath={`/${cat.slug}`} />
                     )}
                   </div>
 

@@ -18,7 +18,7 @@ interface SeoSchemaInspectorProps {
 
 export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) => {
   const [deviceView, setDeviceView] = useState<'desktop' | 'mobile'>('desktop');
-  const [activeSchemaTab, setActiveSchemaTab] = useState<'article' | 'breadcrumbs' | 'local' | 'faq'>('article');
+  const [activeSchemaTab, setActiveSchemaTab] = useState<'article' | 'breadcrumbs' | 'faq'>('article');
   const [copiedSchema, setCopiedSchema] = useState(false);
 
   // Compute schemas
@@ -52,27 +52,6 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
     ],
   };
 
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'PetGroomer',
-    'name': 'All About Pawz',
-    'url': 'https://www.aapawz.com',
-    'telephone': '+1-901-555-PAWZ',
-    'address': {
-      '@type': 'PostalAddress',
-      'addressLocality': 'Memphis',
-      'addressRegion': 'TN',
-      'postalCode': '38138',
-      'addressCountry': 'US',
-    },
-    'areaServed': ['Memphis, TN', 'Bartlett, TN', 'Collierville, TN', 'Germantown, TN', 'Shelby County, TN'],
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': '4.9',
-      'reviewCount': '450',
-    },
-  };
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -88,8 +67,7 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
 
   const currentSchemaObject = 
     activeSchemaTab === 'article' ? articleSchema :
-    activeSchemaTab === 'breadcrumbs' ? breadcrumbsSchema :
-    activeSchemaTab === 'local' ? localBusinessSchema : faqSchema;
+    activeSchemaTab === 'breadcrumbs' ? breadcrumbsSchema : faqSchema;
 
   const currentSchemaJson = JSON.stringify(currentSchemaObject, null, 2);
 
@@ -115,7 +93,7 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
           SERP Snippet & Schema.org JSON-LD Studio
         </h2>
         <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
-          Live simulation of how Google surfaces this page in search results, including rich review stars and FAQ snippets
+          Preview of the page title, description, and structured data
         </p>
       </div>
 
@@ -169,30 +147,16 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
             {data.metaTitle}
           </h3>
 
-          {/* Rich Review Snippet */}
-          <div className="flex items-center gap-1.5 text-xs text-stone-600 mb-1.5">
-            <span className="text-amber-500 font-bold">★★★★★</span>
-            <span className="font-semibold text-stone-700">Rating: 4.9</span>
-            <span>·</span>
-            <span>450 reviews</span>
-            <span>·</span>
-            <span className="text-emerald-700 font-medium">Free booking consultation</span>
-          </div>
-
           {/* Snippet Description */}
           <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
             {data.metaDescription}
           </p>
 
-          {/* FAQ Sitelink Rich Snippet */}
-          <div className="mt-3 pt-3 border-t border-stone-100 space-y-1.5 text-xs text-[#1a0dab]">
-            <div className="flex items-center gap-1.5 hover:underline cursor-pointer">
-              <span>› How often should a Doodle be professionally groomed?</span>
-            </div>
-            <div className="flex items-center gap-1.5 hover:underline cursor-pointer">
-              <span>› Why do groomers require proof of rabies vaccination in Memphis, TN?</span>
-            </div>
-          </div>
+          {data.faqs.slice(0, 2).map((faq) => (
+            <p key={faq.question} className="mt-2 text-xs text-[#1a0dab]">
+              {faq.question}
+            </p>
+          ))}
         </div>
 
         {/* SERP Meta Quality Metrics */}
@@ -232,14 +196,6 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
               }`}
             >
               BreadcrumbList
-            </button>
-            <button
-              onClick={() => setActiveSchemaTab('local')}
-              className={`px-3 py-1.5 rounded-none transition-colors cursor-pointer ${
-                activeSchemaTab === 'local' ? 'bg-stone-900 text-white font-bold' : 'text-stone-700 hover:text-stone-950'
-              }`}
-            >
-              PetGroomer / Local
             </button>
             <button
               onClick={() => setActiveSchemaTab('faq')}
@@ -287,14 +243,14 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
 
           <div className="p-3 bg-emerald-50/60 border border-emerald-300 rounded-none">
             <div className="text-emerald-800 font-bold mb-0.5">Structured Schema</div>
-            <div className="text-stone-600">4 Validated Types</div>
-            <div className="text-[11px] text-emerald-600 mt-1">100% Google Rich Compatible</div>
+            <div className="text-stone-600">Article, breadcrumbs, FAQ</div>
+            <div className="text-[11px] text-emerald-600 mt-1">Structured page information</div>
           </div>
 
           <div className="p-3 bg-emerald-50/60 border border-emerald-300 rounded-none">
-            <div className="text-emerald-800 font-bold mb-0.5">Local Mid-South Signals</div>
-            <div className="text-stone-600">Memphis & Shelby Co.</div>
-            <div className="text-[11px] text-emerald-600 mt-1">Geo-targeted LocalBusiness</div>
+            <div className="text-emerald-800 font-bold mb-0.5">Canonical URL</div>
+            <div className="text-stone-600 break-all">{data.canonicalUrl}</div>
+            <div className="text-[11px] text-emerald-600 mt-1">One preferred page address</div>
           </div>
         </div>
       </div>

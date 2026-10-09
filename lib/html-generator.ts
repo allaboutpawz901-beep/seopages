@@ -54,36 +54,6 @@ export function generateStandaloneHtml(data: GuidePageData): string {
     ],
   };
 
-  const schemaLocalBusiness = {
-    '@context': 'https://schema.org',
-    '@type': 'PetGroomer',
-    'name': 'All About Pawz - Grooming & Pet Care',
-    'image': 'https://www.aapawz.com/images/hero_grooming_dog_1791411047518.jpg',
-    '@id': 'https://www.aapawz.com/#localbusiness',
-    'url': 'https://www.aapawz.com',
-    'telephone': '+1-901-555-PAWZ',
-    'priceRange': '$$',
-    'address': {
-      '@type': 'PostalAddress',
-      'streetAddress': 'Poplar Ave & Germantown Pkwy Area',
-      'addressLocality': 'Memphis',
-      'addressRegion': 'TN',
-      'postalCode': '38138',
-      'addressCountry': 'US',
-    },
-    'geo': {
-      '@type': 'GeoCoordinates',
-      'latitude': 35.1495,
-      'longitude': -89.8115,
-    },
-    'areaServed': ['Memphis, TN', 'Bartlett, TN', 'Collierville, TN', 'Germantown, TN', 'Arlington, TN', 'Shelby County, TN'],
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': '4.9',
-      'reviewCount': '450',
-    },
-  };
-
   const schemaFaq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -99,7 +69,6 @@ export function generateStandaloneHtml(data: GuidePageData): string {
 
   const jsonLdArticleStr = JSON.stringify(schemaArticle, null, 2);
   const jsonLdBreadcrumbsStr = JSON.stringify(schemaBreadcrumbs, null, 2);
-  const jsonLdLocalStr = JSON.stringify(schemaLocalBusiness, null, 2);
   const jsonLdFaqStr = JSON.stringify(schemaFaq, null, 2);
 
   return `<!DOCTYPE html>
@@ -136,9 +105,6 @@ ${jsonLdArticleStr}
   </script>
   <script type="application/ld+json">
 ${jsonLdBreadcrumbsStr}
-  </script>
-  <script type="application/ld+json">
-${jsonLdLocalStr}
   </script>
   <script type="application/ld+json">
 ${jsonLdFaqStr}
@@ -282,20 +248,6 @@ ${jsonLdFaqStr}
       position: relative;
       overflow: hidden;
     }
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #065F46;
-      background: #D1FAE5;
-      padding: 4px 12px;
-      border-radius: 0px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
     .hero-title {
       font-size: 44px;
       line-height: 1.15;
@@ -338,44 +290,12 @@ ${jsonLdFaqStr}
       object-fit: cover;
       display: block;
     }
-    .hero-badge-overlay {
-      position: absolute;
-      bottom: 16px;
-      right: 16px;
-      background: #FFFFFF;
-      padding: 10px 14px;
-      border-radius: 0px;
-      border: 1px solid #E5E7EB;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .stars {
-      color: #F59E0B;
-    }
-
     /* INCENTIVES 3-CARD ROW */
     .incentives-section {
       margin: 48px 0;
     }
     .incentives-header {
       margin-bottom: 28px;
-    }
-    .pill-green {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: #10B981;
-      color: #FFFFFF;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 0px;
-      margin-bottom: 12px;
-      letter-spacing: 0.02em;
     }
     .section-headline {
       font-size: 34px;
@@ -665,16 +585,6 @@ ${jsonLdFaqStr}
       display: flex;
       flex-direction: column;
     }
-    .product-badge {
-      font-size: 11px;
-      font-weight: 700;
-      color: #065F46;
-      background: #D1FAE5;
-      padding: 2px 8px;
-      border-radius: 0px;
-      align-self: flex-start;
-      margin-bottom: 8px;
-    }
     .product-name {
       font-size: 15px;
       font-weight: 700;
@@ -819,7 +729,9 @@ ${jsonLdFaqStr}
   <div class="container breadcrumb-bar">
     <a href="https://www.aapawz.com">Home</a>
     <span>/</span>
-    <a href="https://www.aapawz.com/guides#${data.pillar.toLowerCase()}">${data.pillar}</a>
+    <a href="https://www.aapawz.com${data.archetype === 'product_category'
+      ? data.path.split('/').filter(Boolean).length > 1 ? `/${data.path.split('/').filter(Boolean).slice(0, -1).join('/')}` : data.path
+      : `/guides#${data.pillar.toLowerCase()}`}">${data.pillar}</a>
     <span>/</span>
     <strong>${data.heroTitle}</strong>
   </div>
@@ -829,10 +741,6 @@ ${jsonLdFaqStr}
     <!-- HERO SECTION (Amazon Style Screenshot 3) -->
     <section class="hero-container">
       <div class="hero-content">
-        <div class="hero-kicker">
-          <span>●</span>
-          <span>${data.kickerBadge}</span>
-        </div>
         <h1 class="hero-title">${data.heroTitle}</h1>
         <p class="hero-subtitle">${data.heroSubheadline}</p>
         
@@ -848,21 +756,12 @@ ${jsonLdFaqStr}
 
       <div class="hero-image-wrap">
         <img src="${data.heroImageUrl}" alt="${data.heroImageAlt}" loading="lazy">
-        <div class="hero-badge-overlay">
-          <span class="stars">★★★★★</span>
-          <span>${data.heroRatingText}</span>
-          <span style="color:#6B7280; font-size:12px;">(${data.heroRatingCount})</span>
-        </div>
       </div>
     </section>
 
     <!-- 3-CARD INCENTIVES / TAKEAWAYS SECTION (Amazon Style Screenshot 1) -->
     <section class="incentives-section">
       <div class="incentives-header">
-        <div class="pill-green">
-          <span>★</span>
-          <span>${data.incentivesKicker}</span>
-        </div>
         <h2 class="section-headline">${data.incentivesHeadline}</h2>
         <p class="section-subhead">
           ${data.incentivesSubhead}
@@ -998,7 +897,6 @@ ${jsonLdFaqStr}
           <div class="products-grid">
             ${data.relatedProducts.map(p => `
             <div class="product-card">
-              ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
               <div class="product-name">${p.name}</div>
               <div style="font-size: 12px; color: #6B7280;">${p.category}</div>
               <div class="product-price">${p.price}</div>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { 
-  BadgePercent, 
   Megaphone, 
   Building2, 
   Check, 
@@ -50,9 +49,9 @@ export const IncentivesRow: React.FC<IncentivesRowProps> = ({ data, onExploreCli
             <div>
               {/* Minimal Line Icon (Square Container) */}
               <div className="w-12 h-12 flex items-center justify-start mb-6 text-stone-950 rounded-none">
-                {idx === 0 && <BadgePercent className="w-10 h-10 stroke-[1.5]" />}
+                {idx === 0 && <Building2 className="w-10 h-10 stroke-[1.5]" />}
                 {idx === 1 && <Megaphone className="w-10 h-10 stroke-[1.5]" />}
-                {idx === 2 && <Building2 className="w-10 h-10 stroke-[1.5]" />}
+                {idx === 2 && <Check className="w-10 h-10 stroke-[1.5]" />}
               </div>
 
               {/* Card Title */}
@@ -76,10 +75,6 @@ export const IncentivesRow: React.FC<IncentivesRowProps> = ({ data, onExploreCli
               </ul>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500 font-medium rounded-none">
-              <span>Standard 0{idx + 1}</span>
-              <span className="text-stone-900 font-semibold bg-stone-100 px-2 py-0.5 rounded-none">Shelby County Protocol</span>
-            </div>
           </div>
         ))}
       </div>
