@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getGuideDataBySlug, getAllSlugs, getAnimalCategorySlugs, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
+import { getGuideDataBySlug, getAllSlugs, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
 import { CategoryNode } from '@/lib/types';
 import { SeoPageTemplate } from '@/components/SeoPageTemplate';
 
@@ -18,10 +18,7 @@ function collectAnimalPaths(node: CategoryNode, segments: string[], paths: { slu
 }
 
 export async function generateStaticParams() {
-  const animalSlugs = getAnimalCategorySlugs();
-  const guideParams = getAllSlugs()
-    .filter((slug) => !animalSlugs.has(slug))
-    .map((slug) => ({ slug: [slug] }));
+  const guideParams = getAllSlugs().map((slug) => ({ slug: [slug] }));
   const animalParams = PRODUCT_CATEGORIES
     .filter((category) => ANIMAL_CATEGORY_SLUGS.has(category.slug))
     .flatMap((category) => {
@@ -30,7 +27,7 @@ export async function generateStaticParams() {
       return paths;
     });
 
-  return [...guideParams, ...animalParams];
+  return [...guideParams, ...animalParams.filter((params) => params.slug.length > 1)];
 }
 
 async function getPageData(params: PageProps['params']) {

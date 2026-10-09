@@ -709,12 +709,16 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
     };
 
     for (const root of PRODUCT_CATEGORIES) {
-      const match = routeSegments?.length
+      const match = routeSegments?.length && PRODUCT_CATEGORIES.some((category) => category.slug === routeSegments[0])
         ? (() => {
             const node = findBySegments(root, routeSegments);
             return node ? { node, segments: routeSegments } : null;
           })()
-        : findBySlug(root, [root.slug]);
+        : routeSegments?.length === 1
+          ? findBySlug(root, [root.slug])
+          : routeSegments?.length
+            ? null
+            : findBySlug(root, [root.slug]);
       if (match) {
         matchedProductCategory = { root, node: match.node, segments: match.segments };
         foundItem = { name: match.node.name, slug: match.node.slug, path: `/${match.segments.join('/')}` };
@@ -1058,17 +1062,6 @@ export function getAllSlugs(): string[] {
   });
 
   return Array.from(slugs);
-}
-
-export function getAnimalCategorySlugs(): Set<string> {
-  const slugs = new Set<string>();
-  PRODUCT_CATEGORIES
-    .filter((category) => ['fish-and-aquatics', 'bird', 'reptile', 'small-animal'].includes(category.slug))
-    .forEach((category) => {
-      slugs.add(category.slug);
-      collectCategorySlugs(category.children, slugs);
-    });
-  return slugs;
 }
 
 export function getProductCategoryPaths(): string[] {

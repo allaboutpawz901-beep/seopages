@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getGuideDataBySlug, getAllSlugs, getAnimalCategorySlugs, GUIDES_DIRECTORY } from '@/lib/taxonomy-data';
+import { getGuideDataBySlug, getAllSlugs, GUIDES_DIRECTORY } from '@/lib/taxonomy-data';
 import { SeoPageTemplate } from '@/components/SeoPageTemplate';
 
 interface PageProps {
@@ -10,8 +10,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const animalSlugs = getAnimalCategorySlugs();
-  const allSlugs = getAllSlugs().filter((slug) => !animalSlugs.has(slug));
+  const allSlugs = getAllSlugs();
   const paramsList: { slug: string[] }[] = [];
 
   // 1. Direct single-slug routes under /guides/[slug]

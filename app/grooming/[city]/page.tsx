@@ -9,6 +9,10 @@ interface CityPageProps {
   }>;
 }
 
+function getGuideSlugForCity(city: string) {
+  return city === 'shelby-county' ? 'grooming-across-shelby-county' : `grooming-in-${city}`;
+}
+
 export async function generateStaticParams() {
   const cities = getLocalCitySlugs();
   return cities.map((city) => ({
@@ -18,7 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
   const { city } = await params;
-  const slug = `grooming-in-${city}`;
+  const slug = getGuideSlugForCity(city);
   const data = getGuideDataBySlug(slug);
 
   if (!data) {
@@ -61,7 +65,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
 
 export default async function LocalCityPage({ params }: CityPageProps) {
   const { city } = await params;
-  const slug = `grooming-in-${city}`;
+  const slug = getGuideSlugForCity(city);
   const data = getGuideDataBySlug(slug);
 
   if (!data) {
