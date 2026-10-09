@@ -80,11 +80,6 @@ export interface GuidePageData {
   author: {
     name: string;
     role: string;
-    avatarUrl: string;
-  };
-  veterinaryReviewer?: {
-    name: string;
-    title: string;
   };
   
   // Hero Section (Amazon style)

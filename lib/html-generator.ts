@@ -839,7 +839,7 @@ ${jsonLdFaqStr}
             `).join('')}
           </nav>
           <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #E5E7EB; font-size: 12px; color: #6B7280;">
-            <p><strong>Reviewer:</strong> ${data.veterinaryReviewer ? data.veterinaryReviewer.name : 'All About Pawz Vet Team'}</p>
+            <p><strong>Author:</strong> ${data.author.name}, ${data.author.role}</p>
             <p><strong>Updated:</strong> ${data.lastUpdated}</p>
           </div>
         </div>

@@ -69,12 +69,6 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
                 <UserCheck className="w-4 h-4 text-stone-900 shrink-0" />
                 <span><strong>Author:</strong> {data.author.name}</span>
               </div>
-              {data.veterinaryReviewer && (
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span><strong>Veterinary Review:</strong> {data.veterinaryReviewer.name}</span>
-                </div>
-              )}
               <div className="flex items-center gap-2 text-stone-500 pt-1">
                 <Clock className="w-4 h-4 shrink-0" />
                 <span>{data.lastUpdated} · {data.readTime}</span>
