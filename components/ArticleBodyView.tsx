@@ -8,9 +8,11 @@ import {
   ChevronDown, 
   Clock, 
   UserCheck, 
-  CheckCircle2 
+  CheckCircle2,
+  Phone
 } from 'lucide-react';
 import { GuidePageData } from '@/lib/types';
+import { BUSINESS } from '@/lib/business';
 
 interface ArticleBodyViewProps {
   data: GuidePageData;
@@ -242,8 +244,41 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
           </section>
           )}
 
-          {/* Local Mid-South Cities Showcase (Square) */}
-          {!isProductCategory && <section id="local-service-areas" className="pt-8 border-t border-stone-300">
+          {isProductCategory ? (
+            <section id="local-service-areas" className="pt-8 border-t border-stone-300">
+              <div className="border border-stone-300 bg-[#F8F7F4] p-6 sm:p-8">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-stone-600">
+                  <MapPin className="h-4 w-4 text-orange-700" />
+                  <span>All About Pawz · Memphis, Tennessee</span>
+                </div>
+                <h2 className="mt-3 text-2xl font-black text-stone-950">
+                  Local pet care information for Memphis and Shelby County
+                </h2>
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-stone-700">
+                  These {data.pillar.toLowerCase()} guides are part of the All About Pawz pet care library. Our business is based in Memphis and serves nearby Shelby County communities. Contact us to ask about current store products or services; availability can vary by animal and need.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {BUSINESS.serviceArea.citiesServed.map((city) => (
+                    <span key={city} className="border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold text-stone-700">
+                      {city}, TN
+                    </span>
+                  ))}
+                  <span className="border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold text-stone-700">
+                    {BUSINESS.serviceArea.county}
+                  </span>
+                </div>
+                <a
+                  href={`tel:${BUSINESS.phone}`}
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-stone-950 hover:text-orange-800"
+                >
+                  <Phone className="h-4 w-4" />
+                  Call {BUSINESS.phoneDisplay}
+                </a>
+              </div>
+            </section>
+          ) : (
+          /* Local Mid-South Cities Showcase (Square) */
+          <section id="local-service-areas" className="pt-8 border-t border-stone-300">
             <div className="bg-[#1C1917] text-white p-8 lg:p-10 rounded-none border border-stone-800">
               <div className="flex items-center gap-2 text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">
                 <MapPin className="w-4 h-4 text-orange-500" />
@@ -270,7 +305,7 @@ export const ArticleBodyView: React.FC<ArticleBodyViewProps> = ({
               </div>
             </div>
           </section>
-          }
+          )}
 
           {/* FAQ Accordion Section (Square Accordion Items) */}
           <section id="faq" className="pt-8 border-t border-stone-300">

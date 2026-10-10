@@ -58,7 +58,7 @@ const petGuides = [
     description: 'Guides to food, bedding, habitats, litter, and enrichment.',
     href: '/small-animal',
     linkText: 'Browse small animal guides',
-    accent: 'border-t-rose-700',
+    accent: 'border-t-orange-700',
   },
 ];
 

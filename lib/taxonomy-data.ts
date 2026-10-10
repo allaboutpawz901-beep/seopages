@@ -757,14 +757,22 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
       path: `/${[...relatedBaseSegments, item.slug].join('/')}`,
     }));
     const title = node.slug === root.slug
-      ? `${root.name} Care & Supplies`
-      : `${node.name} ${root.name} Guide`;
-    const description = `Explore ${node.name.toLowerCase()} for ${root.name.toLowerCase()}. Compare key features, care considerations, and selection factors before choosing supplies for your pet.`;
+      ? `${root.name} Care & Supplies in Memphis`
+      : `${node.name} for ${root.name} in Memphis`;
+    const localCategoryName = node.slug === root.slug
+      ? `${root.name.toLowerCase()} care and supplies`
+      : `${node.name.toLowerCase()} for ${root.name.toLowerCase()} pets`;
+    const animalName = root.slug === 'fish-and-aquatics'
+      ? 'fish'
+      : root.slug === 'small-animal'
+        ? 'small animal'
+        : root.name.toLowerCase();
+    const description = `Memphis, TN and Shelby County guide to ${localCategoryName}. Compare fit, safety, cleaning, and care before choosing supplies for your pet.`;
     const sections = [
       {
         id: 'category-overview',
         title: `${node.name} for ${root.name}`,
-        content: `This guide covers the main types of ${node.name.toLowerCase()} available for ${root.name.toLowerCase()} pets. Product specifications and animal needs vary, so check manufacturer guidance and consult a qualified veterinarian when a product affects health, nutrition, or habitat conditions.`,
+        content: `This guide covers the main types of ${node.name.toLowerCase()} available for ${root.name.toLowerCase()} pets. Product specifications and animal needs vary, so check manufacturer guidance and consult a qualified veterinarian when a product affects health, nutrition, or habitat conditions. For pet owners in Memphis and Shelby County, choose for the animal's actual home environment, available space, and season-specific conditions rather than relying on generic product claims.`,
       },
       {
         id: 'selection-checklist',
@@ -781,6 +789,11 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
         title: 'Care and maintenance',
         content: `Follow the manufacturer's cleaning and replacement directions, inspect supplies regularly for damage, and keep products in a condition appropriate for your animal's daily environment. Ask a veterinarian about health or dietary questions rather than relying on product marketing claims.`,
       },
+      {
+        id: 'memphis-area-considerations',
+        title: `${root.name} care in Memphis and Shelby County`,
+        content: `Local homes can vary in room temperature, indoor humidity, ventilation, and available habitat space. Consider the conditions where your pet actually lives, especially during Memphis-area summer heat and seasonal changes. Monitor species-appropriate habitat conditions and follow product instructions; ask a qualified veterinarian or species specialist when care requirements are unclear.`,
+      },
     ];
 
     return {
@@ -790,12 +803,12 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
       pillar: root.name,
       archetype: 'product_category',
       metaTitle: node.slug === root.slug
-        ? `${root.name} Care & Supplies | All About Pawz`
-        : `${node.name} for ${root.name} | All About Pawz`,
+        ? `${root.name} in Memphis | All About Pawz`
+        : `${node.name} in Memphis | All About Pawz`,
       metaDescription: description,
       canonicalUrl: seoUrl(pagePath),
-      targetKeyword: `${node.name.toLowerCase()} ${root.name.toLowerCase()}`,
-      secondaryKeywords: [`${root.name.toLowerCase()} supplies`, `${node.name.toLowerCase()} care`, 'pet product guide'],
+      targetKeyword: `${localCategoryName} Memphis`,
+      secondaryKeywords: [`${root.name.toLowerCase()} supplies Memphis`, `${node.name.toLowerCase()} care Shelby County`, 'pet product guide'],
       readTime: '4 min read',
       lastUpdated: 'Updated October 2026',
       author: { name: 'Brea Stewart', role: 'Certified Dog Groomer' },
@@ -803,11 +816,11 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
       heroSubheadline: description,
       heroCtaText: 'Explore related categories',
       heroCtaSubtext: '',
-      heroFootnote: `Part of the ${root.name} care and supply guide.`,
+      heroFootnote: `A care and supply guide for Memphis and Shelby County pet owners.`,
       heroImageUrl: '/images/hero_grooming_dog_1791411047518.jpg',
       heroImageAlt: `${root.name} supplies guide`,
       incentivesHeadline: `What to consider when choosing ${node.name.toLowerCase()}`,
-      incentivesSubhead: `Use these practical checks to compare options for ${root.name.toLowerCase()} pets.`,
+      incentivesSubhead: `Use these checks to compare options for ${root.name.toLowerCase()} pets in Memphis and Shelby County.`,
       incentivesLinkText: 'Read the complete guide',
       takeawayCards: [
         { icon: 'check', title: 'Check suitability', items: [{ highlight: 'Species and size', text: 'confirm the item matches your animal and setup.' }, { highlight: 'Clear instructions', text: 'look for practical use, cleaning, and replacement guidance.' }] },
@@ -824,9 +837,15 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
       relatedProducts: [],
       relatedArticles,
       faqs: [
-        { question: `How do I choose ${node.name.toLowerCase()}?`, answer: 'Compare species suitability, size, materials, compatibility, cleaning needs, and manufacturer instructions before choosing.' },
+        {
+          question: node.slug === root.slug
+            ? `How do I choose supplies for my ${animalName}?`
+            : `How do I choose ${node.name.toLowerCase()} for my ${animalName}?`,
+          answer: 'Compare species suitability, size, materials, compatibility, cleaning needs, and manufacturer instructions before choosing.',
+        },
         { question: 'How often should supplies be cleaned or replaced?', answer: 'Follow product and manufacturer instructions, and inspect supplies regularly for damage or wear.' },
         { question: 'Who should I ask about health or nutrition needs?', answer: 'A qualified veterinarian can advise on animal-specific health, nutrition, and habitat requirements.' },
+        { question: 'What should Memphis-area pet owners consider?', answer: 'Consider your pet’s actual indoor temperature, humidity, ventilation, and available space, especially during seasonal changes. Follow species-specific care guidance and product instructions.' },
       ],
       localServiceAreas: [],
     };
