@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { CalendarDays, ChevronRight, Menu, PawPrint, Search, X } from 'lucide-react';
+import { Bird, CalendarDays, Cat, ChevronRight, Dog, Fish, Menu, PawPrint, Rabbit, Search, Turtle, X, type LucideIcon } from 'lucide-react';
 import { ALL_GUIDE_ITEMS, GUIDES_DIRECTORY, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
 import { CategoryNode } from '@/lib/types';
 import { seoAsset } from '@/lib/site-url';
@@ -22,6 +22,7 @@ interface MenuSection {
 interface AnimalMenu {
   id: string;
   title: string;
+  icon: LucideIcon;
   path: string;
   image?: string;
   imageAlt?: string;
@@ -95,6 +96,7 @@ function getAnimalMenus(): AnimalMenu[] {
   const dogMenu: AnimalMenu = {
     id: 'dog',
     title: 'Dogs',
+    icon: Dog,
     path: '/guides',
     image: '/images/hero_grooming_dog_1791411047518.jpg',
     imageAlt: 'A freshly groomed dog',
@@ -107,6 +109,7 @@ function getAnimalMenus(): AnimalMenu[] {
   const catMenu: AnimalMenu = {
     id: 'cat',
     title: 'Cats',
+    icon: Cat,
     path: '/guides',
     sections: [...getAnimalGuideSections('cat'), ...getGeneralSupplySections('cat')],
   };
@@ -115,6 +118,13 @@ function getAnimalMenus(): AnimalMenu[] {
     .map((category) => ({
       id: category.slug,
       title: category.slug === 'fish-and-aquatics' ? 'Fish' : category.name,
+      icon: category.slug === 'fish-and-aquatics'
+        ? Fish
+        : category.slug === 'bird'
+          ? Bird
+          : category.slug === 'reptile'
+            ? Turtle
+            : Rabbit,
       path: `/${category.slug}`,
       sections: getCategorySections(category),
     }));
@@ -288,7 +298,7 @@ export const UnifiedTopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
                     }`}
                   >
                     <span className="flex items-center gap-2 text-xs font-bold">
-                      <PawPrint className={`h-4 w-4 ${animal.id === activeAnimalId ? 'text-orange-300' : 'text-orange-700'}`} />
+                      <animal.icon className={`h-4 w-4 ${animal.id === activeAnimalId ? 'text-orange-300' : 'text-orange-700'}`} />
                       {animal.title}
                     </span>
                     <ChevronRight className="hidden h-3.5 w-3.5 opacity-60 sm:block" />
