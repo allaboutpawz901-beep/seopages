@@ -1,4 +1,5 @@
 import { GuidePageData } from './types';
+import { SEO_SITE_URL, seoUrl } from './site-url';
 
 export function generateStandaloneHtml(data: GuidePageData): string {
   const schemaArticle = {
@@ -6,7 +7,7 @@ export function generateStandaloneHtml(data: GuidePageData): string {
     '@type': 'Article',
     'headline': data.metaTitle,
     'description': data.metaDescription,
-    'image': [data.heroImageUrl],
+    'image': [seoUrl(data.heroImageUrl)],
     'datePublished': '2026-01-15T08:00:00+08:00',
     'dateModified': '2026-10-07T12:00:00+08:00',
     'author': {
@@ -37,13 +38,13 @@ export function generateStandaloneHtml(data: GuidePageData): string {
         '@type': 'ListItem',
         'position': 1,
         'name': 'Home',
-        'item': 'https://www.aapawz.com',
+        'item': SEO_SITE_URL,
       },
       {
         '@type': 'ListItem',
         'position': 2,
         'name': data.pillar,
-        'item': `https://www.aapawz.com/guides#${data.pillar.toLowerCase()}`,
+        'item': seoUrl(`/guides#${data.pillar.toLowerCase()}`),
       },
       {
         '@type': 'ListItem',
@@ -70,6 +71,11 @@ export function generateStandaloneHtml(data: GuidePageData): string {
   const jsonLdArticleStr = JSON.stringify(schemaArticle, null, 2);
   const jsonLdBreadcrumbsStr = JSON.stringify(schemaBreadcrumbs, null, 2);
   const jsonLdFaqStr = JSON.stringify(schemaFaq, null, 2);
+  const breadcrumbParentUrl = data.archetype === 'product_category'
+    ? data.path.split('/').filter(Boolean).length > 1
+      ? seoUrl(`/${data.path.split('/').filter(Boolean).slice(0, -1).join('/')}`)
+      : data.canonicalUrl
+    : seoUrl(`/guides#${data.pillar.toLowerCase()}`);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -727,11 +733,9 @@ ${jsonLdFaqStr}
 
   <!-- BREADCRUMB BAR -->
   <div class="container breadcrumb-bar">
-    <a href="https://www.aapawz.com">Home</a>
+    <a href="${SEO_SITE_URL}">Home</a>
     <span>/</span>
-    <a href="https://www.aapawz.com${data.archetype === 'product_category'
-      ? data.path.split('/').filter(Boolean).length > 1 ? `/${data.path.split('/').filter(Boolean).slice(0, -1).join('/')}` : data.path
-      : `/guides#${data.pillar.toLowerCase()}`}">${data.pillar}</a>
+    <a href="${breadcrumbParentUrl}">${data.pillar}</a>
     <span>/</span>
     <strong>${data.heroTitle}</strong>
   </div>
@@ -971,7 +975,7 @@ ${jsonLdFaqStr}
         <h4 class="footer-col-title">Contact & Salon</h4>
         <div class="footer-links">
           <span>📍 Greater Memphis Area, TN</span>
-          <span>📞 (901) 555-PAWZ</span>
+          <span>📞 901-722-1114</span>
           <span>✉️ allaboutpawz901@gmail.com</span>
           <span>🕒 Mon - Sat: 7:30 AM - 5:30 PM</span>
         </div>

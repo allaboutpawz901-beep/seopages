@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { TopNav } from '@/components/TopNav';
 import { GUIDES_DIRECTORY } from '@/lib/taxonomy-data';
+import { seoUrl } from '@/lib/site-url';
 
 const dogBreedGuides = GUIDES_DIRECTORY
   .flatMap((pillar) => pillar.subcategories)
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   title: 'Dog Grooming Guides by Breed | All About Pawz',
   description: 'Choose your dog’s breed to find grooming guidance for coat care, brushing, bathing, and maintenance.',
   alternates: {
-    canonical: 'https://www.aapawz.com/dog-breeds',
+    canonical: seoUrl('/dog-breeds'),
   },
 };
 

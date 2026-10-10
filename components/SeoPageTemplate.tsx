@@ -9,6 +9,7 @@ import { WhyFeaturesCol } from '@/components/WhyFeaturesCol';
 import { ArticleBodyView } from '@/components/ArticleBodyView';
 import { BookingModal } from '@/components/BookingModal';
 import { Footer } from '@/components/Footer';
+import { SEO_SITE_URL, seoUrl } from '@/lib/site-url';
 
 interface SeoPageTemplateProps {
   data: GuidePageData;
@@ -30,7 +31,7 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
     '@type': 'Article',
     'headline': data.metaTitle,
     'description': data.metaDescription,
-    'image': [data.heroImageUrl],
+    'image': [seoUrl(data.heroImageUrl)],
     'datePublished': '2026-01-15T08:00:00+08:00',
     'dateModified': '2026-10-07T12:00:00+08:00',
     'author': {
@@ -54,13 +55,13 @@ export const SeoPageTemplate: React.FC<SeoPageTemplateProps> = ({ data }) => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     'itemListElement': [
-      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.aapawz.com' },
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SEO_SITE_URL },
       ...(data.archetype === 'product_category'
         ? categorySegments.slice(0, -1).map((segment, index) => ({
             '@type': 'ListItem',
             'position': index + 2,
             'name': index === 0 ? data.pillar : segment.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()),
-            'item': `https://www.aapawz.com/${categorySegments.slice(0, index + 1).join('/')}`,
+            'item': seoUrl(`/${categorySegments.slice(0, index + 1).join('/')}`),
           }))
         : []),
       {

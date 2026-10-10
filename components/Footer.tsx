@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import type { AnchorHTMLAttributes } from 'react';
 import { 
   ChevronDown, 
   ChevronUp, 
@@ -17,6 +17,17 @@ import {
   ShieldCheck 
 } from 'lucide-react';
 import { BUSINESS } from '@/lib/business';
+import { SEO_BASE_PATH, SITE_URL, seoAsset } from '@/lib/site-url';
+
+function Link({ href = '', ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const destination = href.startsWith('/')
+    ? href === '/guides'
+      ? `${SITE_URL}${SEO_BASE_PATH}/guides`
+      : `${SITE_URL}${href}`
+    : href;
+
+  return <a href={destination} {...props} />;
+}
 
 // Real social media SVG icons
 function FacebookIcon() { 
@@ -180,7 +191,7 @@ export function SiteFooter() {
           <div className="px-6 border-r border-gold/10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src="/brand/footer-logo.png" 
+              src={seoAsset('/brand/footer-logo.png')}
               alt="All About Pawz — Luxury Pet Grooming, Memphis, TN" 
               width={1021} 
               height={729} 

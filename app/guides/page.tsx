@@ -4,6 +4,7 @@ import { GUIDES_DIRECTORY, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
 import { CategoryNode } from '@/lib/types';
 import { TopNav } from '@/components/TopNav';
 import { Footer } from '@/components/Footer';
+import { seoUrl } from '@/lib/site-url';
 import { 
   ChevronRight, 
   FileText, 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   title: 'Complete Pet Care & Grooming Guides Directory | All About Pawz',
   description: 'Explore our complete library of veterinary-reviewed pet care, breed grooming, canine nutrition, and health guides.',
   alternates: {
-    canonical: 'https://www.aapawz.com/guides',
+    canonical: seoUrl('/guides'),
   },
 };
 

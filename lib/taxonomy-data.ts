@@ -2,6 +2,7 @@ import { CategoryNode, GuidePageData } from './types';
 import { DOMAIN_PROFILES } from './domain-knowledge';
 import { FEEDING_WATERING_PROFILES } from './feeding-watering-data';
 import { GROOMING_ESSENTIALS_PROFILES } from './grooming-essentials-data';
+import { seoUrl } from './site-url';
 
 // Full product categories matching prompt
 export const PRODUCT_CATEGORIES: CategoryNode[] = [
@@ -437,7 +438,7 @@ export const SAMPLE_PAGES: Record<string, GuidePageData> = {
     archetype: 'breed_grooming',
     metaTitle: 'Doodle Grooming Guide: Coat Care, Brushing & Salon Cuts | All About Pawz',
     metaDescription: 'Complete Goldendoodle, Labradoodle & Aussiedoodle grooming guide. Master daily slicker brushing, matting prevention, bath schedules, and salon cuts in Memphis, TN.',
-    canonicalUrl: 'https://www.aapawz.com/doodle-grooming',
+    canonicalUrl: seoUrl('/doodle-grooming'),
     targetKeyword: 'doodle grooming',
     secondaryKeywords: ['goldendoodle haircut', 'doodle matting prevention', 'line brushing doodle', 'memphis dog grooming'],
     readTime: '7 min read',
@@ -792,7 +793,7 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
         ? `${root.name} Care & Supplies | All About Pawz`
         : `${node.name} for ${root.name} | All About Pawz`,
       metaDescription: description,
-      canonicalUrl: `https://www.aapawz.com${pagePath}`,
+      canonicalUrl: seoUrl(pagePath),
       targetKeyword: `${node.name.toLowerCase()} ${root.name.toLowerCase()}`,
       secondaryKeywords: [`${root.name.toLowerCase()} supplies`, `${node.name.toLowerCase()} care`, 'pet product guide'],
       readTime: '4 min read',
@@ -839,7 +840,7 @@ export function getGuideDataBySlug(slug: string, routeSegments?: string[]): Guid
     archetype,
     metaTitle: profile.heroTitle ? `${profile.heroTitle} | All About Pawz` : `${title} | All About Pawz Guide & Mid-South Pet Care`,
     metaDescription: profile.heroSubheadline ? `${profile.heroSubheadline}` : `Comprehensive guide to ${title.toLowerCase()}. Master expert tips, veterinary-reviewed best practices, and salon recommendations in Memphis & Shelby County.`,
-    canonicalUrl: `https://www.aapawz.com${pagePath}`,
+    canonicalUrl: seoUrl(pagePath),
     targetKeyword: title.toLowerCase(),
     secondaryKeywords: [`${title.toLowerCase()} tips`, 'memphis pet care', 'all about pawz guide', 'shelby county dog care'],
     readTime: '6 min read',

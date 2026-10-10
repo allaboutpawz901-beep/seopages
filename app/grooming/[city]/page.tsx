@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getGuideDataBySlug, getLocalCitySlugs } from '@/lib/taxonomy-data';
 import { SeoPageTemplate } from '@/components/SeoPageTemplate';
+import { seoAsset, seoUrl } from '@/lib/site-url';
 
 interface CityPageProps {
   params: Promise<{
@@ -36,16 +37,16 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
     title: data.metaTitle,
     description: data.metaDescription,
     alternates: {
-      canonical: `https://www.aapawz.com/grooming/${city}`,
+      canonical: seoUrl(`/grooming/${city}`),
     },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,
-      url: `https://www.aapawz.com/grooming/${city}`,
+      url: seoUrl(`/grooming/${city}`),
       siteName: 'All About Pawz',
       images: [
         {
-          url: data.heroImageUrl,
+          url: seoAsset(data.heroImageUrl),
           width: 1200,
           height: 675,
           alt: data.heroImageAlt,
@@ -57,7 +58,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
       card: 'summary_large_image',
       title: data.metaTitle,
       description: data.metaDescription,
-      images: [data.heroImageUrl],
+      images: [seoAsset(data.heroImageUrl)],
     },
     keywords: [data.targetKeyword, ...data.secondaryKeywords],
   };
@@ -75,7 +76,7 @@ export default async function LocalCityPage({ params }: CityPageProps) {
   // Adjust canonical for the city route
   const cityData = {
     ...data,
-    canonicalUrl: `https://www.aapawz.com/grooming/${city}`,
+    canonicalUrl: seoUrl(`/grooming/${city}`),
   };
 
   return <SeoPageTemplate data={cityData} />;

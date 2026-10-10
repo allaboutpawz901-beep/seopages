@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getGuideDataBySlug, getAllSlugs, GUIDES_DIRECTORY } from '@/lib/taxonomy-data';
 import { SeoPageTemplate } from '@/components/SeoPageTemplate';
+import { seoAsset, seoUrl } from '@/lib/site-url';
 
 interface PageProps {
   params: Promise<{
@@ -56,7 +57,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const canonicalPath = `/guides/${slug.join('/')}`;
-  const canonicalUrl = `https://www.aapawz.com${canonicalPath}`;
+  const canonicalUrl = seoUrl(canonicalPath);
 
   return {
     title: data.metaTitle,
@@ -71,7 +72,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'All About Pawz',
       images: [
         {
-          url: data.heroImageUrl,
+          url: seoAsset(data.heroImageUrl),
           width: 1200,
           height: 675,
           alt: data.heroImageAlt,
@@ -83,7 +84,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       title: data.metaTitle,
       description: data.metaDescription,
-      images: [data.heroImageUrl],
+      images: [seoAsset(data.heroImageUrl)],
     },
     keywords: [data.targetKeyword, ...data.secondaryKeywords],
   };
@@ -106,7 +107,7 @@ export default async function GuideDynamicPage({ params }: PageProps) {
   const canonicalPath = `/guides/${slug.join('/')}`;
   const modifiedData = {
     ...data,
-    canonicalUrl: `https://www.aapawz.com${canonicalPath}`,
+    canonicalUrl: seoUrl(canonicalPath),
   };
 
   return <SeoPageTemplate data={modifiedData} />;

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getGuideDataBySlug } from '@/lib/taxonomy-data';
 import { SeoPageTemplate } from '@/components/SeoPageTemplate';
+import { seoAsset, seoUrl } from '@/lib/site-url';
 
 const COLLARS_SUBCATEGORIES = [
   'activity-trackers',
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const canonical = `https://www.aapawz.com/collars-harnesses-and-leashes/${subcategory}`;
+  const canonical = seoUrl(`/collars-harnesses-and-leashes/${subcategory}`);
 
   return {
     title: data.metaTitle,
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'All About Pawz',
       images: [
         {
-          url: data.heroImageUrl,
+          url: seoAsset(data.heroImageUrl),
           width: 1200,
           height: 675,
           alt: data.heroImageAlt,
@@ -63,7 +64,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       title: data.metaTitle,
       description: data.metaDescription,
-      images: [data.heroImageUrl],
+      images: [seoAsset(data.heroImageUrl)],
     },
     keywords: [data.targetKeyword, ...data.secondaryKeywords],
   };

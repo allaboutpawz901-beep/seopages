@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { GuidePageData } from '@/lib/types';
+import { seoAsset } from '@/lib/site-url';
 
 interface HeroBannerProps {
   data: GuidePageData;
@@ -49,7 +50,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ data, onBookClick }) => 
         <div className="lg:col-span-5 relative">
           <div className="relative overflow-hidden shadow-md aspect-4/3 sm:aspect-16/10 lg:aspect-4/3 bg-stone-200 rounded-none border border-stone-300">
             <Image
-              src={data.heroImageUrl}
+              src={seoAsset(data.heroImageUrl)}
               alt={data.heroImageAlt}
               fill
               className="object-cover rounded-none"

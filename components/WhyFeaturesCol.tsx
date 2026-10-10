@@ -139,7 +139,7 @@ export const WhyFeaturesCol: React.FC<WhyFeaturesColProps> = ({ data, onLearnMor
               <div className="flex items-center justify-between text-xs text-stone-600 px-1">
                 <span className="flex items-center gap-1.5 font-medium">
                   <Phone className="w-3.5 h-3.5 text-stone-500" />
-                  Call: (901) 555-PAWZ
+                  Call: 901-722-1114
                 </span>
                 <span className="text-stone-400 font-medium">No Waitlist Deposit</span>
               </div>

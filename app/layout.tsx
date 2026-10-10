@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import { SEO_SITE_URL } from '@/lib/site-url';
 import './globals.css'; // Global styles
 
 export const metadata: Metadata = {
@@ -6,12 +7,12 @@ export const metadata: Metadata = {
   title: 'All About Pawz - SEO Pages & Guides Template Hub',
   description: 'Production-ready SEO page library and veterinary-reviewed pet care guide engine for All About Pawz grooming, canine nutrition, and premium supplies.',
   alternates: {
-    canonical: 'https://www.aapawz.com',
+    canonical: SEO_SITE_URL,
   },
   openGraph: {
     title: 'All About Pawz - SEO Pages & Guides Template Hub',
     description: 'Production-ready SEO page library and veterinary-reviewed pet care guide engine for All About Pawz grooming, canine nutrition, and premium supplies.',
-    url: 'https://www.aapawz.com',
+    url: SEO_SITE_URL,
     siteName: 'All About Pawz',
     type: 'website',
   },

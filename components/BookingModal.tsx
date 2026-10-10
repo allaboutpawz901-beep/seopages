@@ -159,7 +159,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <div className="p-4 bg-stone-50 border border-stone-300 text-xs text-stone-700 text-left space-y-1 mb-6 rounded-none">
               <div><strong>Location:</strong> {city}</div>
               <div><strong>Package:</strong> {service}</div>
-              <div><strong>Salon Line:</strong> (901) 555-PAWZ</div>
+              <div><strong>Salon Line:</strong> 901-722-1114</div>
             </div>
             <button
               onClick={() => { setSubmitted(false); onClose(); }}

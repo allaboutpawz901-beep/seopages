@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { seoUrl } from '@/lib/site-url';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://www.aapawz.com/sitemap.xml',
+    sitemap: seoUrl('/sitemap.xml'),
   };
 }

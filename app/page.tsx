@@ -4,15 +4,16 @@ import Link from 'next/link';
 import { ArrowRight, BookOpen, PawPrint } from 'lucide-react';
 import { Footer } from '@/components/Footer';
 import { TopNav } from '@/components/TopNav';
+import { SEO_SITE_URL, seoAsset } from '@/lib/site-url';
 
 export const metadata: Metadata = {
   title: 'Pet Care Guides by Animal | All About Pawz',
   description: 'Find practical care and supply guides for dogs, fish, birds, reptiles, and small animals.',
-  alternates: { canonical: 'https://www.aapawz.com' },
+  alternates: { canonical: SEO_SITE_URL },
   openGraph: {
     title: 'Pet Care Guides by Animal | All About Pawz',
     description: 'Browse practical pet care guides by animal, from dog breeds to aquatics, birds, reptiles, and small animals.',
-    url: 'https://www.aapawz.com',
+    url: SEO_SITE_URL,
     siteName: 'All About Pawz',
     type: 'website',
   },
@@ -114,7 +115,7 @@ export default function HomePage() {
           </div>
           <div className="relative min-h-56 sm:min-h-72 md:min-h-full">
             <Image
-              src="/images/hero_grooming_dog_1791411047518.jpg"
+              src={seoAsset('/images/hero_grooming_dog_1791411047518.jpg')}
               alt="A freshly groomed dog in a salon"
               fill
               priority

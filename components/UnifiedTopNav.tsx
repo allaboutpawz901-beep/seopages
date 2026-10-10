@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { CalendarDays, ChevronRight, Menu, PawPrint, Search, X } from 'lucide-react';
 import { ALL_GUIDE_ITEMS, GUIDES_DIRECTORY, PRODUCT_CATEGORIES } from '@/lib/taxonomy-data';
 import { CategoryNode } from '@/lib/types';
+import { seoAsset } from '@/lib/site-url';
 
 interface MenuLink {
   title: string;
@@ -329,7 +330,7 @@ export const UnifiedTopNav: React.FC<TopNavProps> = ({ onBookClick }) => {
                       <p className="mt-1 max-w-md text-xs leading-relaxed text-stone-600">Browse breed grooming, nutrition, health, and supply guides selected for dog owners.</p>
                     </div>
                     <Image
-                      src={activeAnimal.image}
+                      src={seoAsset(activeAnimal.image)}
                       alt={activeAnimal.imageAlt || ''}
                       width={320}
                       height={210}

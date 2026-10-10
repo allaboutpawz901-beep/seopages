@@ -11,6 +11,7 @@ import {
   FileCheck2 
 } from 'lucide-react';
 import { GuidePageData } from '@/lib/types';
+import { SEO_SITE_URL, seoUrl } from '@/lib/site-url';
 
 interface SeoSchemaInspectorProps {
   data: GuidePageData;
@@ -46,8 +47,8 @@ export const SeoSchemaInspector: React.FC<SeoSchemaInspectorProps> = ({ data }) 
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     'itemListElement': [
-      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.aapawz.com' },
-      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': `https://www.aapawz.com/guides#${data.pillar.toLowerCase()}` },
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SEO_SITE_URL },
+      { '@type': 'ListItem', 'position': 2, 'name': data.pillar, 'item': seoUrl(`/guides#${data.pillar.toLowerCase()}`) },
       { '@type': 'ListItem', 'position': 3, 'name': data.heroTitle, 'item': data.canonicalUrl },
     ],
   };

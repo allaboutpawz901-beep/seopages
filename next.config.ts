@@ -1,6 +1,18 @@
 import type {NextConfig} from 'next';
+import { SEO_BASE_PATH } from './lib/site-url';
 
 const nextConfig: NextConfig = {
+  basePath: SEO_BASE_PATH,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: SEO_BASE_PATH,
+        permanent: false,
+        basePath: false,
+      },
+    ];
+  },
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
